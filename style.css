@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url('https://img.freepik.com/fotos-premium/por-do-sol-ceu-estrela-fundo-luz-nascer-do-sol-natureza-sobre-a-cidade_288539-4573.jpg') no-repeat center;
+  background-size: cover;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: rgb(236, 126, 1);
+  margin-bottom: 20px;
+}
+
+a {
+  display: inline-block;
+  background-color: #f38304;
+  color: #006680;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #e2c104;
+}
+
+a:hover {
+  background-color: #fd8719;
+}
