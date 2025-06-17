@@ -72,3 +72,8 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #fd8719a9;
 }
+.result {
+  font-size: 20px;
+  color:#006680;
+  margin-top: 30px;
+}
