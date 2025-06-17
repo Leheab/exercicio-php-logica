@@ -20,5 +20,20 @@
          </div>
          <input type="submit" value="Enviar">
     </form>
+    
+    <?php
+        $valuel1= $_POST['valuel1'];
+        $valuel2= $_POST['valuel2'];
+
+        $total = $valuel1 + $valuel2;
+    
+        if ($total > 20) {
+            $total = $total + 8;
+        }
+        else {
+            $total = $total - 5;
+        }
+        echo "<div class='result'>O resultado foi: $total</div>"
+    ?>
 </body>
 </html>
