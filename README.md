@@ -10,13 +10,4 @@
 2. Rode o comando `php -S localhost:8585`
 3. Acesse no seu navegador a url: `localhost:8585`
 4. No incide, escolha o exercicio que deseja testar.
-
-# exercicio-php-logica
-# exercicio-php-logica
-# php-logica
-# exercicio-php-logica
-# exercicio-php-logica
-# exercicio-php-logica
-# exercicio-php-logica
-# exercicio-php-logica
 # exercicio-php-logica
