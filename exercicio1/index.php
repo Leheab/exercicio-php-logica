@@ -12,21 +12,21 @@
     <form action="/exercicio1" method="post">
          <div>
             <label for="valuel">Digite o primeiro valor:</label>
-            <input type="number" name="valuel">
+            <input type="number" name="value1">
          </div>
          <div>
             <label for="valuel">Digite o segundo valor:</label>
-            <input type="number" name="valuel">
+            <input type="number" name="value2">
          </div>
          <input type="submit" value="Enviar">
     </form>
-    
-    <?php
-        $valuel1= $_POST['valuel1'];
-        $valuel2= $_POST['valuel2'];
 
-        $total = $valuel1 + $valuel2;
-    
+    <?php
+        $value1 = $_POST['value1'];
+        $value2 = $_POST['value2'];
+
+        $total =  $value1 +  $value2;
+
         if ($total > 20) {
             $total = $total + 8;
         }
