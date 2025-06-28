@@ -17,7 +17,7 @@
             <label for="numero">Digite o segundo valor</label>
             <input type="number" name="numero2">
         </div>
-            <input type="submit" value="Enviar">
+        <input type="submit" value="Enviar">
     </form>
 </body>
 </html>
