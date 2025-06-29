@@ -10,11 +10,11 @@
     <h1>Exercicio 2</h1>
     <form action="/exercicio2" method="post">
         <div>
-            <label for="numero">Digite o primeiro valor</label>
+            <label for="numero1">Digite o primeiro valor</label>
             <input type="number" name="numero1">
         </div>
         <div>
-            <label for="numero">Digite o segundo valor</label>
+            <label for="numero2">Digite o segundo valor</label>
             <input type="number" name="numero2">
         </div>
         <input type="submit" value="Enviar">
