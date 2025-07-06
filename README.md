@@ -7,6 +7,6 @@
 
 ### Passo a passo
 1. Acesse a pasta do projeto
-2. Rode o comando `docker-compose up
+2. Rode o comando `docker-compose up`
 4. Acesse no seu navegador a url: `localhost:8585`
 5. No incide, escolha o exercicio que deseja testar.
