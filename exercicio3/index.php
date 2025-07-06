@@ -25,7 +25,7 @@
             <option value="B">B</option>
             </select>
         </div>
-        
+
         <input type="submit" value="Enviar">
     </form>
 </body>
