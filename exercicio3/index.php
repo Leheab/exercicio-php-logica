@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Consultar online dados de sua habilitação de trânsito:</h1>
-    <form action="/exercicio2" method="post">
+    <form action="/exercicio3" method="post">
         <div>
             <label for="nome">Nome:</label>
             <input type="nome" name="nome">
