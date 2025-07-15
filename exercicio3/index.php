@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Consultar online dados de sua habilitação de trânsito:</h1>
-    <form action="/exercicio3" method="post">
+    <form action="" method="post">
         <div>
             <label for="nome">Nome:</label>
             <input type="nome" name="nome">
@@ -28,5 +28,19 @@
 
         <input type="submit" value="Enviar">
     </form>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $nome = $_POST['nome'];
+        $idade = $_POST['idade'];
+        $categoria = $_POST['categoria'];
+
+    if ($categoria == 'B' && $idade >= 25) {
+        echo $nome . " APTO PARA CONTRATAÇÃO";
+    } else {
+        echo $nome . " NÃO APTO";
+    }
+    }
+    ?>
 </body>
 </html>
