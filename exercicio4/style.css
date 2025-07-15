@@ -1,0 +1,36 @@
+body {
+  background-color: #d2ff07a8;
+  font-family: Arial;
+  margin: 120px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 22px;
+  color: #4c6e0d;
+  margin-bottom: 85px;
+}
+
+form {
+  background: #d1f7c936;
+  padding: 30px;
+  border-radius: 8px;
+  width: 800px;
+}
+
+label {
+  display: block;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 14px;
+  border: 1px solid #329603;
+  border-radius: 3px;
+}
