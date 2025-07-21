@@ -11,7 +11,7 @@
     <form action="" method="post">
         <div>
             <label for="nome">Nome:</label>
-            <input type="nome" name="nome">
+            <input type="text" name="nome">
         </div>
         <div>
             <label for="idade">Idade:</label>
@@ -35,12 +35,12 @@
         $idade = $_POST['idade'];
         $categoria = $_POST['categoria'];
 
-    if ($categoria == 'B' && $idade >= 25) {
-        echo $nome . " APTO PARA CONTRATAÇÃO";
-    } else {
-        echo $nome . " NÃO APTO";
-    }
-    }
+        if ($categoria == 'B' && $idade >= 25) {
+        echo $nome . ": APTO PARA CONTRATAÇÃO";
+        } else {
+        echo $nome . " : NÃO APTO";
+        }
+        }
     ?>
 </body>
 </html>
