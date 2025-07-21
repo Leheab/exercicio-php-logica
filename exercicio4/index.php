@@ -9,7 +9,7 @@
 <body>
     <h1>Preços dos Produtos:</h1>
 
-    <form action="exercicio4.php" method="post">
+    <form action="" method="post">
         <div>
             <label for="valor1">Insira o primeiro preço:</label>
             <input type="number" name="valor1" step="0.1" required>
