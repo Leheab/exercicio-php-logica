@@ -19,10 +19,10 @@
         </div>
         <div>
             <label for="cateroria">Qual a sua categoria da CNH?</label>
-            <select type="categoria" name="categoria">
-            <option value=""> Selecionar </option>
-            <option value="A">A</option>
-            <option value="B">B</option>
+            <select type="text" name="categoria">
+                <option value=""> Selecionar </option>
+                <option value="A">A</option>
+                <option value="B">B</option>
             </select>
         </div>
 
@@ -36,11 +36,11 @@
         $categoria = $_POST['categoria'];
 
         if ($categoria == 'B' && $idade >= 25) {
-        echo $nome . ": APTO PARA CONTRATAÇÃO";
+            echo $nome . ": APTO PARA CONTRATAÇÃO";
         } else {
-        echo $nome . " : NÃO APTO";
+            echo $nome . " : NÃO APTO";
         }
-        }
+    }
     ?>
 </body>
 </html>
