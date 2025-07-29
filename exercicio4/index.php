@@ -43,7 +43,7 @@
         echo "R$ " . number_format($preco, 2, ',', '.') . "<br>";
     }
 
-        echo "Total da compra: R$ " . number_format($total, 2, ',', '.') . "<br>";
+    echo "Total da compra: R$ " . number_format($total, 2, ',', '.') . "<br>";
 }
 ?>
 
