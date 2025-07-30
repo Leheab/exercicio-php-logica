@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +18,6 @@
     <a href="exercicio8/">Exercicio 8</a>
     <a href="exercicio9/">Exercicio 9</a>
     <a href="exercicio10/">Exercicio 10</a>
-
+    
 </body>
 </html>
