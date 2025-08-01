@@ -33,19 +33,19 @@
         $preco2 = floatval($_POST["valor2"]);
         $preco3 = floatval($_POST["valor3"]);
 
-    $precos = array($preco1, $preco2, $preco3);
+        $precos = array($preco1, $preco2, $preco3);
 
-    sort($precos);
+        sort($precos);
 
-    $total = $preco1 + $preco2 + $preco3;
-        echo "Preços em ordem crescente:<br>";
-    foreach ($precos as $preco) {
-        echo "R$ " . number_format($preco, 2, ',', '.') . "<br>";
+        $total = $preco1 + $preco2 + $preco3;
+            echo "Preços em ordem crescente:<br>";
+        foreach ($precos as $preco) {
+            echo "R$ " . number_format($preco, 2, ',', '.') . "<br>";
+        }
+
+            echo "Total da compra: R$ " . number_format($total, 2, ',', '.') . "<br>";
     }
-
-    echo "Total da compra: R$ " . number_format($total, 2, ',', '.') . "<br>";
-}
-?>
+    ?>
 
 </body>
 </html>
