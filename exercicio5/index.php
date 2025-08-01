@@ -25,10 +25,10 @@
     </form>
 
     <?php
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $idade1 = $_POST["idade1"];
-            $idade2 = $_POST["idade2"];
-            $idade3 = $_POST["idade3"];
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $idade1 = $_POST["idade1"];
+        $idade2 = $_POST["idade2"];
+        $idade3 = $_POST["idade3"];
 
         if($idade1 == $idade2 && $idade2 == $idade3) {
             echo "TRIGÊMEOS";
@@ -37,8 +37,8 @@
         } else {
             echo "IDADES DISTINTAS";
         }
-}
-?>
+    }
+    ?>
 
 </body>
 </html>
