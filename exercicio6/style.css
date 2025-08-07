@@ -57,3 +57,15 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0a3769;
 }
+
+.mensagem {
+    margin: 40px auto 0;
+    border-radius: 1%;
+    max-width: 352px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f54a4a;
+    text-align: center;
+    background-color: #ffffff8f;
+}
