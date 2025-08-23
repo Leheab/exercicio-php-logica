@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Estou no exercício 1</h1>
-    <form action="/exercicio1" method="post">
+    <form action="" method="post">
          <div>
             <label for="valuel">Digite o primeiro valor:</label>
             <input type="number" name="value1">
@@ -22,18 +22,21 @@
     </form>
 
     <?php
-        $value1 = $_POST['value1'];
-        $value2 = $_POST['value2'];
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $total =  $value1 +  $value2;
+            $value1 = (int) $_POST['value1'];
+            $value2 = (int) $_POST['value2'];
 
-        if ($total > 20) {
-            $total = $total + 8;
+            $total =  $value1 +  $value2;
+
+            if ($total > 20) {
+                $total = $total + 8;
+            }
+            else {
+                $total = $total - 5;
+            }
+            echo "<div class='result'>O resultado foi: $total</div>";
         }
-        else {
-            $total = $total - 5;
-        }
-        echo "<div class='result'>O resultado foi: $total</div>"
     ?>
 </body>
 </html>
