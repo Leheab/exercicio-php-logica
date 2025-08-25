@@ -18,7 +18,7 @@
             <input type="number" name="idade">
         </div>
         <div>
-            <label for="cateroria">Qual a sua categoria da CNH?</label>
+            <label for="categoria">Qual a sua categoria da CNH?</label>
             <select type="text" name="categoria">
                 <option value=""> Selecionar </option>
                 <option value="A">A</option>
