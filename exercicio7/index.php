@@ -48,10 +48,29 @@
 
         <button type="submit"><h3>Gerar Comprovante</h3></button>
     </form>
+ <?php
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $empresa = $_POST['empresa'];
+          $plano   = $_POST['plano'];
+
+          if ($plano == "Premium") {
+              $dias = 14;
+          } elseif ($plano == "Básico") {
+              $dias = 5;
+          } 
+
+          echo "<div class='comprovante'>";
+          echo "<b>&#x1F5A8;Comprovante da Reserva</b><br>";
+          echo "Empresa: $empresa<br>";
+          echo "Plano: $plano<br>";
+          echo "Duração da Reserva: $dias dias<br>";
+          echo "</div>";
+      }
+  ?>
 
     <footer>
         <p>&copy; 2025 Coworking Titans.</p>
     </footer>
-
+    
 </body>
 </html>
