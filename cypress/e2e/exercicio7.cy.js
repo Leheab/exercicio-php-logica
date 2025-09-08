@@ -7,7 +7,7 @@ describe('A home', () => {
     cy.contains('Conheça o nosso espaço no Rio de Janeiro ').should('be.visible')
   })
 
-  it('Testando o campo da empresa', () => {
+  it('Testando o campo de empresa', () => {
     cy.get('input[name="empresa"]').should('be.visible')
   })
 
