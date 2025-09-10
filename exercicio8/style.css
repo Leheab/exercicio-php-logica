@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #030303;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+     color: #00ff41;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background: rgba(0,0,0,0.9);
+    border:3px solid #00ff41;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 70px;
+    max-width:400px;
+    width: 100%;
+    box-shadow: 0 0 18px#00ff41;
+}
+
+.container h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.container p {
+    font-size: 14px;
+    color: #ff00ea;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #00ff41;
+    margin-bottom: 6px;
+}
+
+input[type="number"] {
+    border-radius: 4px;
+    background: transparent;
+    color: #00ff41;
+    border: 2px solid #00ff41;
+    padding: 18px;
+    font-size: px;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"]:focus {
+    box-shadow: 0 0 10px #00ff41;
+    border-color: #00ff41;
+}
+
+input[type="submit"] {
+    background:#15bd3f86;
+    color: #ff00ea;
+    border: 2px solid #00ff41;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    box-shadow: 0 0 15px #00ff41;
+    transform: translateY(-2px);
+}
