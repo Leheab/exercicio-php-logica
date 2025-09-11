@@ -19,6 +19,22 @@
         </form>
 
         <div id="resultado"></div>
+            <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $numero = $_POST["numero"];
+                $soma = 0;
+
+                echo "Contagem dos números: ";
+                for ($i = 1; $i <= $numero; $i++) {
+                    echo $i . " ";
+                    $soma += $i;
+                }
+
+                $media = $soma / $numero;
+                echo "<br>Resultado da média: " . $media;
+            }
+            ?>
+
     </div>
 </body>
 </html>
