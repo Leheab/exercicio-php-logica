@@ -18,7 +18,30 @@
         <input type="submit" value="Gerar Padrão">
     </form>
 
-    <div id="resultado"></div>
+    <div class="resultado">        
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $numero = $_POST['estrela'];
+
+            echo "<h3>Você escolheu $numero</h3>";
+
+            for ($cadalinha = 1; $cadalinha <= $numero; $cadalinha++) {
+
+                $linha = "";
+
+                for ($cadaestrela = 1; $cadaestrela <= $cadalinha; $cadaestrela++) {
+                    $linha .= "*";
+                }
+
+                if ($cadalinha == 1) {
+                    echo "<p>$linha (1 estrela)</p>";
+                } else {
+                    echo "<p>$linha ($cadalinha estrelas)</p>";
+                }
+            }
+        }
+        ?>
+    </div>
 
 </body>
 </html>
