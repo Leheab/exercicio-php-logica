@@ -1,8 +1,35 @@
 version: '3.9'
+
 services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_novos_titans
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: novos_titans_dados
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin  
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: user
+      PMA_PASSWORD: password
+
   php-apache:
     image: php:8.3-apache
     ports:
-     - 8585:80
+      - "8585:80"
     volumes:
-     - ./:/var/www/html
+      - ./:/var/www/html
+
+volumes:
+  db-data:
