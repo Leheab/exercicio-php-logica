@@ -1,9 +1,17 @@
+<?php
+    include "src/countStar.php";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       $print = countStar($_POST["numero"]);
+    }
+    $print20 = countStar(20);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title>Verificador de Dias da Semana:</title>
 </head>
 <body>
@@ -20,39 +28,12 @@
         </div>
     </form>
 
-<?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $numero = $_POST["numero"];
+    <div class="resultado">
+        <?= isset($print) ? $print : '' ?>
+    </div>
 
-        switch ($numero) {
-            case 1:
-                $mensagem = "Domingo";
-                break;
-            case 2:
-                $mensagem = "Segunda-feira";
-                break;
-            case 3:
-                $mensagem = "Terça-feira";
-                break;
-            case 4:
-                $mensagem = "Quarta-feira";
-                break;
-            case 5:
-                $mensagem = "Quinta-feira";
-                break;
-            case 6:
-                $mensagem = "Sexta-feira";
-                break;
-            case 7:
-                $mensagem = "Sabado";
-                break;
-            default:
-                $mensagem = "Número inválido, por favor digite  um número de 1 a 7 para corresponder a um dia da semana.";
-        }
-        
-        echo "<div class='mensagem'> Resultado: $mensagem</div>";
-    }
-?>
-
+    <div class="resultado">
+        <?= $print20 ?>
+    </div>
 </body>
 </html>
