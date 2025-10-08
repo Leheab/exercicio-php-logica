@@ -16,6 +16,7 @@ describe('A home', () => {
     cy.visit('/exercicio6')
     cy.get('input[type="number"]').type('1')
     cy.get('input[type=submit]').click()
+    cy.get('input[type=submit]').click()
     cy.contains('Resultado: Domingo').should('be.visible')
   }) 
 
