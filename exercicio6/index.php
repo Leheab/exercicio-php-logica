@@ -1,9 +1,8 @@
 <?php
-    include "src/countStar.php";
+    include "src/diaSemana.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       $print = countStar($_POST["numero"]);
+       $print = diaSemana($_POST["numero"]);
     }
-    $print20 = countStar(20);
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +29,6 @@
 
     <div class="resultado">
         <?= isset($print) ? $print : '' ?>
-    </div>
-
-    <div class="resultado">
-        <?= $print20 ?>
     </div>
 </body>
 </html>
