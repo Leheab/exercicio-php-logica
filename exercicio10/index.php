@@ -1,5 +1,6 @@
 <?php
     include "src/notas.php";
+    $print = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $print = calculaNota($_POST["nomeAluno"], $_POST["nomeDisciplina"], $_POST["notaAluno"]);
     }
