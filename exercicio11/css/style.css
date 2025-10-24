@@ -1,0 +1,49 @@
+body {
+    background-color: #80cbc3c2;
+    font-family: Arial, sans-serif;
+}
+
+.titulo {
+    text-align: center;
+    color: #00796b;
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #e0f7fa54;
+    width: 50%;
+    max-width: 352px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    border-radius: 20px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    border: 1px solid #00796b;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.input-field {
+    margin-bottom: 6px;
+}
+
+button.btn {
+    background-color: #00796b;
+}
+
+button.btn:hover {
+    background-color:#009483ef;
+}
+
+.resultado {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #00796b;
+}
