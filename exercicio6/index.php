@@ -1,7 +1,7 @@
 <?php
-    include "src/diaSemana.php";
+    include "src/countStar.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       $print = diaSemana($_POST["numero"]);
+       $print = countStar($_POST["numero"]);
     }
 ?>
 
