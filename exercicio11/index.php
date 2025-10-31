@@ -3,6 +3,7 @@
     $mensagem = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensagem = calculaMultiplos($_POST["base"], $_POST["quantidade"]);
+    $tabela = getHistorico();
     }
 ?>
 
@@ -62,11 +63,12 @@
     <section id="historico">
         <h5>Histórico de Sequências</h5>
 
-        <a href="index.php"><button>Atualizar</button></a>
-
         <div id="tabela-sequencias">
             <?= $tabela ?? '' ?>
         </div>
+
+        <a href="index.php"><button>Atualizar</button></a>
+
     </section>
 
 </body>
