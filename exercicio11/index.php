@@ -1,3 +1,11 @@
+<?php
+    include "src/gerar.php";
+    $mensagem = '';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $mensagem = calculaMultiplos($_POST["base"], $_POST["quantidade"]);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,7 +23,7 @@
         <h3>Sequência de Múltiplos</h3>
     </div>
 
-    <form id="formMultiplos" method="post">
+    <form id="formMultiplos" action="" method="post">
 
         <div class="row">
             <div class="col s12">
@@ -48,8 +56,18 @@
     </form>
 
     <div class="resultado center-align">
-        <?= $mensagem ?>
+        <?= isset($mensagem) ? $mensagem : '' ?>
     </div>
+
+    <section id="historico">
+        <h5>Histórico de Sequências</h5>
+
+        <a href="index.php"><button>Atualizar</button></a>
+
+        <div id="tabela-sequencias">
+            <?= $tabela ?? '' ?>
+        </div>
+    </section>
 
 </body>
 </html>
