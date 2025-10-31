@@ -20,6 +20,12 @@
 - Senha: `password`
 - Volume persistente: `db-data`
 
+### Passo a Passo para uso de banco d dados
+- Ao acessar a porta informada anteriormente do phpmyadmim, clique em `novos_titans_dados`
+- Usuário deve importar o arquivo.sql presente na pasta db do respectivo exercício
+- Na aba import, em file import, procure pelo arquivo de extensão SQL dentro da pasta, clique em `import`
+- Tambem disponível no link: `http://localhost:8080/index.php?route=/database/structure&db=novos_titans_dados`
+
 ### Passo a passo de uso Cypress:
 1. Para instalar, entre pasta do projeto e rode: `npm install` 
 2. Verifique que o servidor do projeto esta rodando
