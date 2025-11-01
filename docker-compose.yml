@@ -24,11 +24,13 @@ services:
       PMA_USER: user
       PMA_PASSWORD: password
 
-  php-apache:
-    image: php:8.3-apache
+php-apache:
+    build: 
+      dockerfile: Dockerfile
+      context: ./
     ports:
-      - "8585:80"
-    volumes:
+      - 8585:80
+    volumes: 
       - ./:/var/www/html
 
 volumes:
