@@ -24,7 +24,7 @@ services:
       PMA_USER: user
       PMA_PASSWORD: password
 
-php-apache:
+  php-apache:
     build: 
       dockerfile: Dockerfile
       context: ./
