@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.titulo {
+    margin-bottom: 32px;
+    text-align: center;
+    color:#1caaa3;
+}
+
+.left-form {
+    background: #faf5f5;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.left-form input {
+    background: #faf5f5;
+}
+
+.btn {
+    margin-top: 10px;
+    background-color: #1caaa3;
+    color: #fcf3f3;
+}
+
+.resultado {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #020101;
+}
+
+.TituloHistorico {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color:#1caaa3;
+
+}
+
+.piramide-container {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(3, 3, 3, 0.1);
+    min-height: 200px;
+}
+
+.piramide-card {
+    background-color: #fdf3f3;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.piramide-card {
+    margin-bottom: 5px;
+}
+
+.linha-piramide {
+    text-align: center;
+    font-family: monospace;
+}
