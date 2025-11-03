@@ -1,3 +1,11 @@
+<?php
+    include "src/salva.php";
+    $print = "";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $print = gerarPiramide($_POST["palavra"], $_POST["niveis"]);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
