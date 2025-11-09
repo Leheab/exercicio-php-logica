@@ -1,7 +1,7 @@
 <?php
 include "conexao.php";
 
-function gerarPiramide() {
+function gerarPiramide($palavra, $niveis) {
     global $conexao;
 
     $palavra = $_POST['palavra'] ?? '';
@@ -13,15 +13,17 @@ function gerarPiramide() {
             VALUES ('$palavra', $niveis, $total, NOW())";
     mysqli_query($conexao, $sql);
 
-    echo "<h3>$palavra</h3>";
+    $saida = "<h3>$palavra</h3>";
 
     for ($linha = 1; $linha <= $niveis; $linha++) {
         for ($repeticao = 1; $repeticao <= $linha; $repeticao++) {
-            echo $palavra . " ";
+            $saida .= $palavra . " ";
         }
-        echo "<br>";
+        $saida .= "<br>";
     }
 
-    echo "<p>Níveis: $niveis | Total de repetições: $total</p>";
+    $saida .= "<p>Níveis: $niveis | Total de repetições: $total</p>";
+
+    return $saida;
 }
 ?>
