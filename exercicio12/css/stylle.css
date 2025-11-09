@@ -2,6 +2,9 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .titulo {
@@ -14,6 +17,8 @@ body {
     background: #faf5f5;
     padding: 20px;
     border-radius: 4px;
+    width: 300px;
+    margin-bottom: 20px;
 }
 
 .left-form input {
@@ -30,6 +35,8 @@ body {
     margin-bottom: 20px;
     font-weight: bold;
     color: #020101;
+    width: 320px; 
+    text-align: center;    
 }
 
 .TituloHistorico {
@@ -38,6 +45,7 @@ body {
     margin-top: 20px;
     margin-bottom: 10px;
     color:#1caaa3;
+    width: 320px;
 
 }
 
@@ -47,6 +55,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(3, 3, 3, 0.1);
     min-height: 200px;
+    width: 320px;
 }
 
 .piramide-card {
@@ -55,6 +64,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .piramide-card {
@@ -63,5 +73,6 @@ body {
 
 .linha-piramide {
     text-align: center;
+    width: 320px;
     font-family: monospace;
 }

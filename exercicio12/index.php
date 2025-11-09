@@ -1,9 +1,26 @@
 <?php
     include "src/salva.php";
-    $print = "";
+    include "src/conexao.php";
+    $mensagem = "";
+    $historico= "";
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $print = gerarPiramide($_POST["palavra"], $_POST["niveis"]);
+        $mensagem = gerarPiramide($_POST["palavra"], $_POST["niveis"]);
+}
+
+$sql = "SELECT * FROM Exercicio12 ORDER BY id DESC";
+$result = mysqli_query($conexao, $sql);
+
+if ($result) {
+    while ($linha = mysqli_fetch_assoc($result)) {
+        $historico .= "<div class='piramide-card'>";
+        $historico .= "<h5>" . htmlspecialchars($linha['word']) . "</h5>";
+        
+        $historico .= "<p>Níveis: " . $linha['levels'] . " | Total de repetições: " . $linha['total_repetitions'] . "</p>";
+        $historico .= "</div>";
     }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,24 +73,26 @@
                 </div>
 
             </form>
-        </div>
 
-        <div class="col s12 m6 l8">
-            <div class="resultado center-align" id="mensagem">
+            <div class="resultado center-align">
+                <?= isset($mensagem) ? $mensagem : '' ?>
             </div>
+
+        <section id="historico" class="center-align">
 
             <div class="TituloHistorico">
                 <h4>Histórico de Pirâmides</h4>
             </div>
 
-            <div class="piramide-container" id="historicoPiramide">
+            <div class="piramide-container" id="historicoPiramides">
+                <?= $historico ?? '' ?>
             </div>
 
             <div class="center-align">
                 <button class="btn" id="btnAtualizar">Atualizar</button>
             </div>
 
-        </div>
+        </section>
 
     </div>
 
