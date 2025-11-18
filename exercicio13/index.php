@@ -1,3 +1,11 @@
+<?php
+    include "src/processa.php";
+    $resultado = "";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $resultado = salvarPreco($_POST["preço"]);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
