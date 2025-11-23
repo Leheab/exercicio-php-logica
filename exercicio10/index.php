@@ -4,6 +4,9 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $print = calculaNota($_POST["nomeAluno"], $_POST["nomeDisciplina"], $_POST["notaAluno"]);
     }
+
+    $sql = "SELECT * FROM exercicio10 ORDER BY id DESC";
+    $registros = mysqli_query($conexao, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +70,36 @@
 
     <div class="resultado">
       <?= $print ?>
-    </div>
+<?php
+
+$sql = "SELECT * FROM exercicio10 ORDER BY id DESC";
+$registros = mysqli_query($conexao, $sql);
+
+$tabela = "<h2>Notas Cadastradas</h2>";
+$tabela .= "<table border='1' style='border-collapse: collapse; width: 100%;'>";
+$tabela .= "<tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Situação</th>
+            </tr>";
+
+while ($row = mysqli_fetch_assoc($registros)) {
+    $tabela .= "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['name']}</td>
+                    <td>{$row['subject']}</td>
+                    <td>{$row['score']}</td>
+                    <td>{$row['status']}</td>
+                </tr>";
+}
+
+$tabela .= "</table>";
+
+echo $tabela;
+?>
+</div>
 
 </body>
 </html>
