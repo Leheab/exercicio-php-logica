@@ -1,5 +1,8 @@
 <?php
-    include "src/processa.php";
+    error_reporting(0);
+
+    include __DIR__ . "/src/processa.php";
+    
     $resultado = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado = salvarPreco($_POST["preço"]);
