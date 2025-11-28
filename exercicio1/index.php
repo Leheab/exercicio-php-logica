@@ -24,9 +24,12 @@
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $value1 = (int) $_POST['value1'];
-            $value2 = (int) $_POST['value2'];
+            $value1 = filter_input(INPUT_POST, 'value1', FILTER_VALIDATE_INT);
+            $value2 = filter_input(INPUT_POST, 'value2', FILTER_VALIDATE_INT);
 
+            if ($value1 === false || $value2 === false) {
+                echo "<div class='result erro'>Por favor, digite números válidos.</div>";
+            } else {
             $total =  $value1 +  $value2;
 
             if ($total > 20) {
@@ -35,8 +38,9 @@
             else {
                 $total = $total - 5;
             }
-            echo "<div class='result'>O resultado foi: $total</div>";
+            echo "<div class='result'>O resultado foi:" . htmlspecialchars($total) . "</div>";
         }
+    }    
     ?>
 </body>
 </html>
