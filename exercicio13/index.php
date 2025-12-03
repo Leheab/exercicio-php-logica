@@ -1,7 +1,8 @@
-
 <?php
-    include "src/processa.php";
+    error_reporting(0);
 
+    include __DIR__ . "/src/processa.php";
+    
     $resultado = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -40,8 +41,8 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">attach_money</i>
-                        <input type="number" id="preço" name="preço" step="0.01" required>
-                        <label for="preço">Preço do Produto</label>
+                        <input type="number" id="preco" name="preco" step="0.01" required>
+                        <label for="preco">Preço do Produto</label>
                     </div>
                 </div>
             </div>
