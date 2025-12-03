@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
+}
+
+$palavras = ["carro", "gato", "casa", "sol", "lua", "verde", "neve", "flor"];
+$palavraEscolhida = $palavras[array_rand($palavras)];
+$_SESSION['captcha_palavra'] = $palavraEscolhida;
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,6 +22,9 @@
     <h1>Preços dos Produtos:</h1>
 
     <form action="" method="post">
+
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
         <div>
             <label for="valor1">Insira o primeiro preço:</label>
             <input type="number" name="valor1" step="0.1" required>
@@ -22,19 +37,33 @@
             <label for="valor3">Insira o terceiro preço:</label>
             <input type="number" name="valor3" step="0.1" required>
         </div>
-        
+
+        <div>
+            <label>Digite a palavra: <strong><?php echo $palavraEscolhida; ?></strong></label>
+            <input type="text" name="captcha" required>
+        </div>
+
         <input type="submit" value="Calcular">
 
     </form>
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            die("<p style='color:red;'>Erro: CSRF token inválido.</p>");
+        }
+
+        if (!isset($_POST['captcha']) 
+            || strtolower($_POST['captcha']) !== strtolower($_SESSION['captcha_palavra'])) {
+            die("<p style='color:red;'>Captcha incorreto! Tente novamente.</p>");
+        }
+
         $preco1 = floatval($_POST["valor1"]);
         $preco2 = floatval($_POST["valor2"]);
         $preco3 = floatval($_POST["valor3"]);
 
         $precos = array($preco1, $preco2, $preco3);
-
         sort($precos);
 
         $total = $preco1 + $preco2 + $preco3;
