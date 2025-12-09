@@ -37,6 +37,7 @@ describe('Exercício 10 - Formulário de Notas (Sem Backend)', () => {
     cy.wait(500);
 
     cy.get('table').should('be.visible');
+
     cy.contains('td', 'Bruna Oliveira').should('be.visible');
     cy.contains('td', 'Caique Souza').should('be.visible');
     cy.contains('td', 'Rayssa de Paula').should('be.visible');
