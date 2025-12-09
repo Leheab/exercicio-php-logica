@@ -1,4 +1,4 @@
-describe('Exercício 10 - Formulário de Notas (Sem Backend)', () => {  
+describe('Exercício 10 - Formulário de Notas (Sem Backend)', () => {
   beforeEach(() => {
     cy.visit('/exercicio10/');
   });
@@ -30,5 +30,15 @@ describe('Exercício 10 - Formulário de Notas (Sem Backend)', () => {
     cy.get('#nomeDisciplina').type('Matemática');
     cy.get('#notaAluno').type('1.2');
     cy.get('.botao').click();
+  });
+
+  it('Validar tabela aparece após cadastro', () => {
+    cy.visit('/exercicio10/');
+    cy.wait(500);
+
+    cy.get('table').should('be.visible');
+    cy.contains('td', 'Bruna Oliveira').should('be.visible');
+    cy.contains('td', 'Caique Souza').should('be.visible');
+    cy.contains('td', 'Rayssa de Paula').should('be.visible');
   });
 });
