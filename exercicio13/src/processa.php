@@ -5,17 +5,36 @@ function salvarPreco($preco)
 {
     global $conexao;
 
+    $preco = trim($preco);
     if ($preco == -1) {
         return mostrarResultado();
     }
-
+    
     $sql = "INSERT INTO exercicio13 (preco, data_cadastro) VALUES ('$preco', NOW())";
     $query = mysqli_query($conexao, $sql);
 
-    if ($query) {
-        return "Preço cadastrado: R$ " . number_format($preco, 2, ',', '.');
+    $preco = str_replace(',', '.', $preco);
+
+    if (!filter_var($preco, FILTER_VALIDATE_FLOAT)) {
+        return "<span style='color:red'>Erro: Insira apenas números válidos.</span>";
+    }
+
+    $sql = "INSERT INTO exercicio13 (preco, data_cadastro) VALUES (?, NOW())";
+    $stmt = mysqli_prepare($conexao, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "d", $preco);
+
+        $executou = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        if ($executou) {
+            return "Preço cadastrado: R$ " . number_format((float)$preco, 2, ',', '.');
+        } else {
+            return "<span style='color:red'>Erro interno ao salvar os dados.</span>";
+        }
     } else {
-        return "Erro ao salvar.";
+        return "<span style='color:red'>Erro na conexão com o banco.</span>";
     }
 }
 
@@ -23,10 +42,10 @@ function mostrarResultado()
 {
     global $conexao;
 
-    $sql = "SELECT id, preco, data_cadastro FROM exercicio13";
+    $sql = "SELECT id, preco, data_cadastro FROM exercicio13 ORDER BY data_cadastro DESC";
     $result = mysqli_query($conexao, $sql);
 
-    if (mysqli_num_rows($result) == 0) {
+    if (!$result || mysqli_num_rows($result) == 0) {
         return "Nenhum preço foi cadastrado.";
     }
 
@@ -46,31 +65,18 @@ function mostrarResultado()
         <tbody>
     ";
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $preco = $row["preco"];
+    while ($linha = mysqli_fetch_assoc($result)) {
+        $valor = $linha["preco"];
         $total++;
 
-        if ($preco >= 50 && $preco <= 150) {
+        if ($valor >= 50 && $valor <= 150) {
             $faixa++;
         }
-
-        if ($preco >= 50 && $preco <= 150) {
-            $faixa++;
-        }
-
-        $html .= "
-            <tr>
-                <td>{$row['id']}</td>
-                <td>R$ " . number_format($preco, 2, ',', '.') . "</td>
-                <td>{$row['data_cadastro']}</td>
-            </tr>
-        ";
     }
 
-    $html .= "</tbody></table>";
+    $texto = "";
+    $texto .= "Total de preços informados: $total<br>";
+    $texto .= "Preços dentro da faixa (50 a 150): $faixa";
 
-    $html .= "<p><b>Total de preços:</b> $total</p>";
-    $html .= "<p><b>Preços entre 50 e 150:</b> $faixa</p>";
-
-    return $html;
+    return $texto;
 }
