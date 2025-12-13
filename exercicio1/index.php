@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['captcha'])) {
-    $_SESSION['captcha'] = rand(1000, 9999);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="PT-Br">
 
@@ -29,25 +21,14 @@ if (!isset($_SESSION['captcha'])) {
             <input type="number" name="value2" required>
         </div>
 
-        <div>
-            <label>Digite o Captcha: <strong><?php echo $_SESSION['captcha']; ?></strong></label>
-            <input type="number" name="captcha_input" required>
-        </div>
-
         <input type="submit" value="Enviar">
     </form>
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if ($_POST['captcha_input'] != $_SESSION['captcha']) {
-            echo "<div class='result erro'>Captcha incorreto. Tente novamente.</div>";
-
-            $_SESSION['captcha'] = rand(1000, 9999);
-            exit;
-        }
-        $value1 = filter_input(INPUT_POST, 'value1', FILTER_VALIDATE_INT);
-        $value2 = filter_input(INPUT_POST, 'value2', FILTER_VALIDATE_INT);
+        $value1 = filter_input(INPUT_POST, 'value1', FILTER_VALIDATE_FLOAT);
+        $value2 = filter_input(INPUT_POST, 'value2', FILTER_VALIDATE_FLOAT);
 
         if ($value1 === false || $value2 === false) {
             echo "<div class='result erro'>Por favor, digite números válidos.</div>";
@@ -59,10 +40,10 @@ if (!isset($_SESSION['captcha'])) {
             } else {
                 $total = $total - 5;
             }
-            echo "<div class='result'>O resultado foi:" . htmlspecialchars($total) . "</div>";
-        }
 
-        $_SESSION['captcha'] = rand(1000, 9999);
+            $resultadoFormatado = number_format($total, 2, ',', '.');
+            echo "<div class='result'>O resultado foi: " . htmlspecialchars($resultadoFormatado) . "</div>";
+        }
     }
     ?>
 </body>
