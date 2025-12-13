@@ -34,4 +34,41 @@ describe('A Home', () => {
     cy.get('input[type="submit"]').click()
     cy.contains('O resultado foi: 15').should('be.visible')
   })
+
+  it('Deve bloquear JS Injection (XSS) e mostrar erro de validação', () => {
+    cy.visit('/exercicio1')
+    cy.get('input[name="value1"]').then(($input) => {
+      $input.attr('type', 'text')
+    }).type('<script>alert("Hacked")</script>', { parseSpecialCharSequences: false })
+
+    cy.get('input[name="value2"]').type('10')
+    cy.get('input[type="submit"]').click()
+
+    cy.contains('Por favor, digite números válidos.').should('be.visible')
+    cy.get('body').should('not.contain.html', '<script>alert("Hacked")</script>')
+  })
+
+  it('Deve bloquear SQL Injection e mostrar erro de validação', () => {
+    cy.visit('/exercicio1')
+    cy.get('input[name="value1"]').then(($input) => {
+      $input.attr('type', 'text')
+    }).type("' OR 1=1 --")
+
+    cy.get('input[name="value2"]').type('10')
+    cy.get('input[type="submit"]').click()
+
+    cy.contains('Por favor, digite números válidos.').should('be.visible')
+  })
+
+  it('Deve bloquear PHP Code Injection e mostrar erro de validação', () => {
+    cy.visit('/exercicio1')
+    cy.get('input[name="value1"]').then(($input) => {
+      $input.attr('type', 'text')
+    }).type('<?php phpinfo(); ?>', { parseSpecialCharSequences: false })
+
+    cy.get('input[name="value2"]').type('10')
+    cy.get('input[type="submit"]').click()
+
+    cy.contains('Por favor, digite números válidos.').should('be.visible')
+  })
 })
