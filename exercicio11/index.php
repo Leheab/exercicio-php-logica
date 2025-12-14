@@ -1,14 +1,25 @@
 <?php
-    include "src/gerar.php";
-    $mensagem = '';
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $mensagem = calculaMultiplos($_POST["base"], $_POST["quantidade"]);
-    $tabela = getHistorico();
+include "src/gerar.php";
+
+$mensagem = '';
+$tabela = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $baseInput = filter_input(INPUT_POST, 'base', FILTER_VALIDATE_INT);
+    $qtdInput = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
+
+    if ($baseInput && $qtdInput) {
+        $mensagem = calculaMultiplos($baseInput, $qtdInput);
+        $tabela = getHistorico();
+    } else {
+        $mensagem = "<span style='color:red'>Por favor, insira números válidos.</span>";
     }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +29,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+
 <body>
 
     <div class="titulo">
@@ -56,20 +68,28 @@
 
     </form>
 
-    <div class="resultado center-align">
-        <?= isset($mensagem) ? $mensagem : '' ?>
+    <?php if (!empty($mensagem)): ?>
+        <div class="resultado center-align">
+            <?= $mensagem ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($tabela)): ?>
+        <section id="historico">
+            <h5>Histórico de Sequências</h5>
+
+            <div id="tabela-sequencias">
+                <?= $tabela ?? '' ?>
+            </div>
+
+            <div class="center-align" style="margin-top: 20px;">
+                <a href="index.php" class="btn grey">Limpar</a>
+            </div>
+
+        </section>
+    <?php endif; ?>
     </div>
 
-    <section id="historico">
-        <h5>Histórico de Sequências</h5>
-
-        <div id="tabela-sequencias">
-            <?= $tabela ?? '' ?>
-        </div>
-
-        <a href="index.php"><button>Atualizar</button></a>
-
-    </section>
-
 </body>
+
 </html>
