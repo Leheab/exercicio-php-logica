@@ -1,23 +1,37 @@
 <?php
-    include "src/salva.php";
-    include "src/conexao.php";
-    $mensagem = "";
-    $historico= "";
+include "src/salva.php";
+include_once "src/conexao.php";
+$mensagem = "";
+$historico = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $mensagem = gerarPiramide($_POST["palavra"], $_POST["niveis"]);
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $palavraPost = $_POST["palavra"] ?? '';
+    $niveisPost = filter_input(INPUT_POST, 'niveis', FILTER_VALIDATE_INT);
+    $mensagem = gerarPiramide($palavraPost, $niveisPost);
 
-$sql = "SELECT * FROM Exercicio12 ORDER BY id DESC";
-$result = mysqli_query($conexao, $sql);
+    if ($palavraPost && $niveisPost) {
+        $mensagem = gerarPiramide($palavraPost, $niveisPost);
 
-if ($result) {
-    while ($linha = mysqli_fetch_assoc($result)) {
-        $historico .= "<div class='piramide-card'>";
-        $historico .= "<h5>" . htmlspecialchars($linha['word']) . "</h5>";
-        
-        $historico .= "<p>Níveis: " . $linha['levels'] . " | Total de repetições: " . $linha['total_repetitions'] . "</p>";
-        $historico .= "</div>";
+
+        $sql = "SELECT * FROM Exercicio12 ORDER BY id DESC";
+        $result = mysqli_query($conexao, $sql);
+
+        if ($result) {
+            while ($linha = mysqli_fetch_assoc($result)) {
+                $wordSafe = htmlspecialchars($linha['word'], ENT_QUOTES, 'UTF-8');
+
+                $levelsSafe = (int)$linha['levels'];
+                $totalSafe = (int)$linha['total_repetitions'];
+
+                $historico .= "<div class='piramide-card'>";
+                $historico .= "<h5>" . $wordSafe . "</h5>";
+
+                $historico .= "<p>Níveis: " . $levelsSafe . " | Total de repetições: " . $totalSafe . "</p>";
+                $historico .= "</div>";
+            }
+        }
+    } else {
+        $mensagem = "<span style='color:red'>Dados inválidos.</span>";
     }
 }
 
@@ -25,6 +39,7 @@ if ($result) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +48,7 @@ if ($result) {
     <link rel="stylesheet" href="css/stylle.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+
 <body>
 
     <div class="titulo center-align">
@@ -78,23 +94,24 @@ if ($result) {
                 <?= isset($mensagem) ? $mensagem : '' ?>
             </div>
 
-        <section id="historico" class="center-align">
+            <?php if (!empty($historico)): ?>
+                <section id="historico" class="center-align">
 
-            <div class="TituloHistorico">
-                <h4>Histórico de Pirâmides</h4>
-            </div>
+                    <div class="TituloHistorico">
+                        <h4>Histórico de Pirâmides</h4>
+                    </div>
 
-            <div class="piramide-container" id="historicoPiramides">
-                <?= $historico ?? '' ?>
-            </div>
+                    <div class="center-align" style="margin-top: 15px;">
+                        <div class="piramide-container" id="historicoPiramides">
+                            <?= $historico ?>
 
-            <div class="center-align">
-                <button class="btn" id="btnAtualizar">Atualizar</button>
-            </div>
+                            <a href="index.php" class="btn grey">Limpar Tela</a>
+                        </div>
+                </section>
+            <?php endif; ?>
 
-        </section>
-
-    </div>
+        </div>
 
 </body>
+
 </html>
