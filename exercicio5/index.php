@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION["captcha"])) {
-    $_SESSION["captcha"] = rand(1000, 9999);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -32,26 +24,23 @@ if (!isset($_SESSION["captcha"])) {
             <input type="number" name="idade3" required>
         </div>
 
-        <div>
-            <p>Digite o código: <strong><?php echo $_SESSION["captcha"]; ?></strong></p>
-            <input type="text" name="captcha" required placeholder="Digite o código acima">
-        </div>
-
         <input type="submit" value="Consultar">
     </form>
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if ($_POST["captcha"] != $_SESSION["captcha"]) {
-            echo "<p><strong>Captcha incorreto! Tente novamente.</strong></p>";
-            $_SESSION["captcha"] = rand(1000, 9999);
-            exit;
-        }
-
         $idade1 = intval($_POST["idade1"]);
         $idade2 = intval($_POST["idade2"]);
         $idade3 = intval($_POST["idade3"]);
+
+        echo "<p>Idades processadas: " .
+            htmlspecialchars($idade1) . ", " .
+            htmlspecialchars($idade2) . ", " .
+            htmlspecialchars($idade3) .
+            "</p>";
+
+        echo "<p><strong>Resultado: </strong>";
 
         if ($idade1 == $idade2 && $idade2 == $idade3) {
             echo "TRIGÊMEOS";
@@ -61,7 +50,7 @@ if (!isset($_SESSION["captcha"])) {
             echo "IDADES DISTINTAS";
         }
 
-        $_SESSION["captcha"] = rand(1000, 9999);
+        echo "</p>";
     }
     ?>
 
