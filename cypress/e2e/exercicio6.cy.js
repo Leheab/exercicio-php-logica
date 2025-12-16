@@ -25,6 +25,25 @@ describe('Verificador de Dias da Semana', () => {
   it('Deve mostrar mensagem de erro para número inválido', () => {
     cy.get('input[name="numero"]').clear().type('0')
     cy.get('input[type="submit"]').click()
-    cy.contains('Número inválido, por favor digite').should('be.visible')
+    cy.contains('Número inválido (0). Digite um valor de 1 a 7.').should('be.visible')
+  })
+
+  it('Deve proteger contra XSS (JS Injection)', () => {
+    cy.get('input[name="numero"]').invoke('attr', 'type', 'text').clear().type('<script>alert("XSS")</script>')
+    cy.get('input[type="submit"]').click()
+
+    cy.get('body').should('not.contain.html', '<script>alert("XSS")</script>')
+
+    cy.contains('Entrada processada: 0').should('be.visible')
+  })
+
+  it('Deve proteger contra SQL Injection', () => {
+    cy.get('input[name="numero"]').invoke('attr', 'type', 'text').clear().type('1 OR 1=1')
+    cy.get('input[type="submit"]').click()
+
+    cy.contains('Entrada processada: 1').should('be.visible')
+    cy.contains('Resultado: Domingo').should('be.visible')
+
+    cy.contains('OR 1=1').should('not.exist')
   })
 })
