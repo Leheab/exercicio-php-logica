@@ -1,3 +1,29 @@
+<?php
+error_reporting(E_ERROR | E_PARSE);
+
+include __DIR__ . "/src/processa.php";
+
+$mensagem = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $mensagem = calcularEvolucao(
+        $_POST['nome1'],
+        $_POST['valor1'],
+        $_POST['taxa1'],
+        $_POST['nome2'],
+        $_POST['valor2'],
+        $_POST['taxa2']
+    );
+}
+
+$historico = listarHistorico();
+
+function campo($nomeCampo)
+{
+    return htmlspecialchars($_POST[$nomeCampo] ?? '', ENT_QUOTES, 'UTF-8');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -38,18 +64,18 @@
 
                                     <div class="input-field">
                                         <i class="material-icons prefix">person_outline</i>
-                                        <input id="nome1" name="nome1" type="text" required value="<?= $_POST['nome1'] ?? 'Maria' ?>">
-                                        <label for="nome1">Nome</label>
+                                        <input id="nome1" name="nome1" type="text" required value="<?= campo('nome1') ?>">
+                                        <label for="nome1" class="<?= !empty(campo('nome1')) ? 'active' : '' ?>">Nome</label>
                                     </div>
-                                    <div class="input-field">
+                                    <div class=" input-field">
                                         <i class="material-icons prefix">monetization_on</i>
-                                        <input id="valor1" name="valor1" type="number" step="0.01" required value="<?= $_POST['valor1'] ?? '5000' ?>">
-                                        <label for="valor1">Capital Inicial (R$)</label>
+                                        <input id="valor1" name="valor1" type="number" step="0.01" required value="<?= campo('valor1') ?>">
+                                        <label for="valor1" class="<?= !empty(campo('valor1')) ? 'active' : '' ?>">Capital Inicial (R$)</label>
                                     </div>
                                     <div class="input-field">
                                         <i class="material-icons prefix">show_chart</i>
-                                        <input id="taxa1" name="taxa1" type="number" step="0.01" required value="<?= $_POST['taxa1'] ?? '2' ?>">
-                                        <label for="taxa1">Taxa Mensal (%)</label>
+                                        <input id="taxa1" name="taxa1" type="number" step="0.01" required value="<?= campo('taxa1') ?>">
+                                        <label for="taxa1" class="<?= !empty(campo('taxa1')) ? 'active' : '' ?>">Taxa Mensal (%)</label>
                                     </div>
                                 </div>
 
@@ -60,18 +86,18 @@
 
                                     <div class="input-field">
                                         <i class="material-icons prefix">person</i>
-                                        <input id="nome2" name="nome2" type="text" required value="<?= $_POST['nome2'] ?? 'João' ?>">
-                                        <label for="nome2">Nome</label>
+                                        <input id="nome2" name="nome2" type="text" required value="<?= campo('nome2') ?>">
+                                        <label for="nome2" class="<?= !empty(campo('nome2')) ? 'active' : '' ?>">Nome</label>
                                     </div>
                                     <div class="input-field">
                                         <i class="material-icons prefix">monetization_on</i>
-                                        <input id="valor2" name="valor2" type="number" step="0.01" required value="<?= $_POST['valor2'] ?? '8000' ?>">
-                                        <label for="valor2">Capital Inicial (R$)</label>
+                                        <input id="valor2" name="valor2" type="number" step="0.01" required value="<?= campo('valor2') ?>">
+                                        <label for="valor2" class="<?= !empty(campo('valor2')) ? 'active' : '' ?>">Capital Inicial (R$)</label>
                                     </div>
                                     <div class="input-field">
                                         <i class="material-icons prefix">trending_flat</i>
-                                        <input id="taxa2" name="taxa2" type="number" step="0.01" required value="<?= $_POST['taxa2'] ?? '1' ?>">
-                                        <label for="taxa2">Taxa Mensal (%)</label>
+                                        <input id="taxa2" name="taxa2" type="number" step="0.01" required value="<?= campo('taxa2') ?>">
+                                        <label for="taxa2" class="<?= !empty(campo('taxa2')) ? 'active' : '' ?>">Taxa Mensal (%)</label>
                                     </div>
                                 </div>
 
