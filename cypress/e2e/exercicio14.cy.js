@@ -4,51 +4,81 @@ describe('Frontend - Interface do Simulador', () => {
     cy.visit('/exercicio14/');
   });
 
-  it('Deve carregar o Card Principal com o estilo correto', () => {
-    cy.get('.custom-card').should('be.visible');
-
-    cy.contains('h4', 'Simulador de Rendimentos').should('be.visible');
-    cy.contains('Compare a evolução patrimonial').should('be.visible');
+  it('Deve carregar a interface', () => {
+    cy.get('input[name="nome1"]').should('have.value', '');
+    cy.get('input[name="valor1"]').should('have.value', '');
+    cy.get('input[name="nome2"]').should('have.value', '');
   });
 
-  it('Deve exibir as duas colunas de comparação (Menor vs Maior)', () => {
-    cy.contains('Começa Menor').should('be.visible');
-    cy.contains('Começa Maior').should('be.visible');
+  it('Deve verificar a dinâmica das labels (classe active)', () => {
+    cy.get('label[for="nome1"]').should('not.have.class', 'active');
 
-    cy.get('.divider-vertical').should('exist');
+    cy.get('input[name="nome1"]').type('Maria', { force: true });
+    cy.get('input[name="valor1"]').type('5000', { force: true });
+    cy.get('input[name="taxa1"]').type('2', { force: true });
+    cy.get('input[name="nome2"]').type('João', { force: true });
+    cy.get('input[name="valor2"]').type('8000', { force: true });
+    cy.get('input[name="taxa2"]').type('1', { force: true });
+
+    cy.get('button[type="submit"]').click({ force: true });
+
+    cy.get('label[for="nome1"]').should('have.class', 'active');
   });
 
-  it('Deve ter todos os 6 campos de input visíveis', () => {
-    const campos = ['nome1', 'valor1', 'taxa1', 'nome2', 'valor2', 'taxa2'];
+  it('Deve manter os dados nos campos após o cálculo (Persistência)', () => {
+    const nomeTeste = 'Ana Maria';
+    cy.get('input[name="nome1"]').type(nomeTeste, { force: true });
+    cy.get('input[name="valor1"]').type('1000', { force: true });
+    cy.get('input[name="taxa1"]').type('5', { force: true });
+    cy.get('input[name="nome2"]').type('Carlos', { force: true });
+    cy.get('input[name="valor2"]').type('2000', { force: true });
+    cy.get('input[name="taxa2"]').type('1', { force: true });
 
-    campos.forEach(campo => {
-      cy.get(`input[name="${campo}"]`).should('be.visible');
-    });
+    cy.get('button[type="submit"]').click({ force: true });
+
+    cy.get('input[name="nome1"]').should('have.value', nomeTeste);
   });
 
-  it('Deve verificar se os ícones do Materialize estão presentes', () => {
-    cy.get('.input-field i.material-icons').should('have.length.at.least', 6);
-    cy.get('i.material-icons').contains('person_outline');
-    cy.get('i.material-icons').contains('monetization_on');
+  it('Deve validar a mensagem de erro quando a ultrapassagem é impossível', () => {
+    cy.get('input[name="nome1"]').type('Pessoa Lenta', { force: true });
+    cy.get('input[name="valor1"]').type('1000', { force: true });
+    cy.get('input[name="taxa1"]').type('1', { force: true });
+    cy.get('input[name="nome2"]').type('Pessoa Rápida', { force: true });
+    cy.get('input[name="valor2"]').type('5000', { force: true });
+    cy.get('input[name="taxa2"]').type('2', { force: true });
+
+    cy.get('button[type="submit"]').click({ force: true });
+
+    cy.get('.result-box').should('be.visible');
+    cy.get('.red-text').should('contain', 'nunca alcançará');
   });
 
-  it('Deve permitir digitar valores nos campos', () => {
-    cy.get('input[name="nome1"]')
-      .clear()
-      .type('Teste Frontend')
-      .should('have.value', 'Teste Frontend'); // Verifica se o valor ficou lá
+  it('Deve validar quando a Pessoa 1 já começa com valor maior', () => {
+    cy.get('input[name="nome1"]').type('Rico', { force: true });
+    cy.get('input[name="valor1"]').type('10000', { force: true });
+    cy.get('input[name="nome2"]').type('Pobre', { force: true });
+    cy.get('input[name="valor2"]').type('500', { force: true });
+    cy.get('input[name="taxa1"]').type('2', { force: true });
+    cy.get('input[name="taxa2"]').type('1', { force: true });
 
-    cy.get('input[name="valor1"]')
-      .clear()
-      .type('9999.50')
-      .should('have.value', '9999.50');
+    cy.get('button[type="submit"]').click({ force: true });
+
+    cy.get('.blue-text').should('contain', 'já possui mais capital');
   });
 
-  it('Deve ter o botão de calcular estilizado', () => {
-    cy.get('button[type="submit"]')
-      .should('be.visible')
-      .and('have.class', 'btn-action') // Classe CSS personalizada
-      .contains('Realizar Cálculo');
+  it('Deve verificar se o cálculo salvou no Histórico', () => {
+    const nomeUnico = 'Usuario_' + Date.now();
+
+    cy.get('input[name="nome1"]').type(nomeUnico, { force: true });
+    cy.get('input[name="valor1"]').type('5000', { force: true });
+    cy.get('input[name="taxa1"]').type('3', { force: true });
+    cy.get('input[name="nome2"]').type('Banco', { force: true });
+    cy.get('input[name="valor2"]').type('7000', { force: true });
+    cy.get('input[name="taxa2"]').type('1', { force: true });
+
+    cy.get('button[type="submit"]').click({ force: true });
+
+    cy.get('table.custom-table tbody tr').first().should('contain', nomeUnico);
   });
 
 });
