@@ -1,5 +1,5 @@
 <?php
-include "src/salva.php";
+include_once "src/salva.php";
 include_once "src/conexao.php";
 $mensagem = "";
 $historico = "";
@@ -7,9 +7,8 @@ $historico = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $palavraPost = $_POST["palavra"] ?? '';
     $niveisPost = filter_input(INPUT_POST, 'niveis', FILTER_VALIDATE_INT);
-    $mensagem = gerarPiramide($palavraPost, $niveisPost);
 
-    if ($palavraPost && $niveisPost) {
+    if (!empty($palavraPost) && $niveisPost > 0) {
         $mensagem = gerarPiramide($palavraPost, $niveisPost);
 
 
@@ -57,14 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="row">
 
-        <div class="col s12 m6 l4">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
             <form id="Piramide" method="post" class="left-form">
 
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input type="text" id="palavra" name="palavra" maxlength="20" required>
+                                <input type="text" id="palavra" name="palavra" maxlength="100" required>
                                 <label for="palavra">Qual a Palavra? (máx de 20 caracteres)</label>
                             </div>
                         </div>
@@ -90,9 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </form>
 
-            <div class="resultado center-align">
-                <?= isset($mensagem) ? $mensagem : '' ?>
-            </div>
+            <div class="resultado center-align"><?= $mensagem ?></div>
 
             <?php if (!empty($historico)): ?>
                 <section id="historico" class="center-align">
@@ -104,14 +101,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="center-align" style="margin-top: 15px;">
                         <div class="piramide-container" id="historicoPiramides">
                             <?= $historico ?>
-
                             <a href="index.php" class="btn grey">Limpar Tela</a>
                         </div>
+                    </div>
                 </section>
             <?php endif; ?>
 
         </div>
-
+    </div>
 </body>
 
 </html>

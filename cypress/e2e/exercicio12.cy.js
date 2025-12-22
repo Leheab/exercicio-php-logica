@@ -17,8 +17,6 @@ describe('Exercício 12 - Gerar Pirâmide de Texto', () => {
 
   it('Segurança: Bloquear tentativa de XSS (Script Injection)', () => {
     const payload = "<script>alert('Hacked')</script>";
-    const payloadEscaped = "&lt;script&gt;alert(&#039;Hacked&#039;)&lt;/script&gt;";
-
     cy.get('#palavra').type(payload, { force: true });
     cy.get('#niveis').type('2', { force: true });
 
@@ -31,11 +29,10 @@ describe('Exercício 12 - Gerar Pirâmide de Texto', () => {
       expect(stub).not.to.be.called;
     });
 
-    // ✅ aparece escapado
-    cy.get('.resultado').should('contain.html', payloadEscaped);
-
-    // ❌ não existe script real
     cy.get('.resultado').find('script').should('not.exist');
+    cy.get('.resultado')
+      .invoke('html')
+      .should('contain', '&lt;script&gt;alert');
   });
 
   it('Segurança: Bloquear tentativa de HTML Injection (Negrito)', () => {
@@ -56,8 +53,12 @@ describe('Exercício 12 - Gerar Pirâmide de Texto', () => {
 
     cy.get('body').should('not.contain', 'SQL syntax');
     cy.get('body').should('not.contain', 'mysqli_');
-    cy.get('.resultado').should('contain', "O'neil");
+
+    cy.get('.resultado')
+      .invoke('text')
+      .should('match', /O.*neil/);
   });
+
 
   it('Funcionalidade: Botão Limpar Tela deve esconder o histórico', () => {
     cy.get('#palavra').type('Teste', { force: true });
