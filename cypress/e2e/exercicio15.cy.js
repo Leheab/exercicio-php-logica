@@ -61,4 +61,37 @@ describe('Titans Lab - Teste de Interface e Estilo', () => {
       .and('have.attr', 'href', 'index.php');
   });
 
+  it('9. Segurança: Deve validar se o sistema calcula e persiste os dados corretamente', () => {
+    const valorTeste = "123.45";
+    cy.get('input[name="conc_inicial"]').type(valorTeste, { force: true });
+    cy.get('input[name="conc_minima"]').type('10.00', { force: true });
+    cy.get('.botao-titans').click();
+
+    cy.get('.laudo-tecnico').should('be.visible');
+    cy.get('.tabela-titans tbody tr').first().contains('123,45');
+  });
+
+  it('10. Segurança: Deve garantir a proteção contra XSS nos inputs', () => {
+    const xssAttack = '<script>alert("xss")</script>';
+
+    cy.get('input[name="conc_inicial"]')
+      .invoke('attr', 'type', 'text')
+      .type(xssAttack, { force: true });
+
+    cy.get('.botao-titans').click();
+    cy.get('body').should('not.contain', xssAttack);
+  });
+
+  it('11. Segurança: Deve ignorar inputs maliciosos de SQL Injection', () => {
+    const sqlInjection = "' OR 1=1 --";
+
+    cy.get('input[name="conc_inicial"]')
+      .invoke('attr', 'type', 'text')
+      .type(sqlInjection, { force: true });
+
+    cy.get('.botao-titans').click();
+    cy.get('body').should('not.contain', 'SQL syntax');
+    cy.get('body').should('not.contain', 'Fatal error');
+  });
+
 });
