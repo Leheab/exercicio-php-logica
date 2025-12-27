@@ -6,14 +6,19 @@ function salvarPreco($preco)
     global $conexao;
 
     $preco = trim($preco);
+    $preco = str_replace(',', '.', $preco);
+
     if ($preco == -1) {
         return mostrarResultado();
     }
-    
-    $sql = "INSERT INTO exercicio13 (preco, data_cadastro) VALUES ('$preco', NOW())";
-    $query = mysqli_query($conexao, $sql);
 
-    $preco = str_replace(',', '.', $preco);
+    if (!is_numeric($preco)) {
+        return "<span style='color:red'>Erro: Insira apenas números válidos.</span>";
+    }
+
+    $sql = "INSERT INTO exercicio13 (preco, data_cadastro) VALUES (?, NOW())";
+    $stmt = mysqli_prepare($conexao, $sql);
+
 
     if (!filter_var($preco, FILTER_VALIDATE_FLOAT)) {
         return "<span style='color:red'>Erro: Insira apenas números válidos.</span>";
@@ -42,7 +47,7 @@ function mostrarResultado()
 {
     global $conexao;
 
-    $sql = "SELECT id, preco, data_cadastro FROM exercicio13 ORDER BY data_cadastro DESC";
+    $sql = "SELECT id, preco, data_cadastro FROM exercicio13";
     $result = mysqli_query($conexao, $sql);
 
     if (!$result || mysqli_num_rows($result) == 0) {
@@ -52,21 +57,11 @@ function mostrarResultado()
     $total = 0;
     $faixa = 0;
 
-    $html  = "<h5>Resultado</h5>";
-    $html .= "<table class='striped centered'>";
-    $html .= "
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Preço</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
-    ";
-
     while ($linha = mysqli_fetch_assoc($result)) {
-        $valor = $linha["preco"];
+        $valorOriginal = $linha["preco"];
+        $valorLimpo = htmlspecialchars($valorOriginal, ENT_QUOTES, 'UTF-8');
+
+        $valor = (float)$valorLimpo;
         $total++;
 
         if ($valor >= 50 && $valor <= 150) {
@@ -74,7 +69,7 @@ function mostrarResultado()
         }
     }
 
-    $texto = "";
+    $texto = "<h5>Resultado Final</h5>";
     $texto .= "Total de preços informados: $total<br>";
     $texto .= "Preços dentro da faixa (50 a 150): $faixa";
 
