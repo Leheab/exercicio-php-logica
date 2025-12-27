@@ -1,3 +1,23 @@
+<?php
+error_reporting(E_ERROR | E_PARSE);
+
+include __DIR__ . "/src/processa.php";
+
+$tempo_total = null;
+$lista_progressao_html = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $resultado = processarSimulacao($_POST['conc_inicial'], $_POST['conc_minima']);
+
+    if ($resultado) {
+        $tempo_total = $resultado['tempo'];
+        $lista_progressao_html = $resultado['log'];
+    }
+}
+
+$linhas_tabela = buscarHistorico();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -43,7 +63,7 @@
                                     <div class="input-field campo-clean">
                                         <i class="material-icons prefix">science</i>
                                         <input id="conc_inicial" name="conc_inicial" type="number" step="0.01" required
-                                            value="<?= $_POST['conc_inicial'] ?? '' ?>">
+                                            value="<?= htmlspecialchars($_POST['conc_inicial'] ?? '') ?>">
                                         <label for="conc_inicial">Conc. Inicial (mg/L)</label>
                                     </div>
                                 </div>
@@ -51,7 +71,7 @@
                                     <div class="input-field campo-clean">
                                         <i class="material-icons prefix">shield</i>
                                         <input id="conc_minima" name="conc_minima" type="number" step="0.01" required
-                                            value="<?= $_POST['conc_minima'] ?? '' ?>">
+                                            value="<?= htmlspecialchars($_POST['conc_minima'] ?? '') ?>">
                                         <label for="conc_minima">Limite Seguro (mg/L)</label>
                                     </div>
                                 </div>
