@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --terracota: #B35C44;
+    --verde-musgo: #5B6D44;
+    --marrom-profundo: #2D1B14;
+    --branco-vidro: rgba(255, 255, 255, 0.9);
+}
+
+body.fundo-artesanal {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('https://cdn.assets-casacor.tec.br/file/casacor-images-news/2025/08/Epiphyllum-oxypetalum-dama-da-noite.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.topo-pagina {
+    padding: 25px 0;
+}
+
+.bloco-logotipo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.texto-logo {
+    color: #FFFFFF;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    line-height: 0.8;
+    text-align: right;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.sub-logo {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-top: 8px;
+}
+
+/* Painel de Entrada */
+.painel-entrada {
+    background: var(--branco-vidro);
+    backdrop-filter: blur(10px);
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    margin-top: 10px;
+}
+
+.cabecalho-centro {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.etiqueta-voto {
+    background: var(--terracota);
+    color: white;
+    padding: 4px 15px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 50px !important;
+}
+
+.titulo-formulario {
+    font-family: 'Playfair Display', serif;
+    color: var(--marrom-profundo);
+    margin: 15px 0 5px;
+}
+
+.legenda-formulario {
+    font-size: 0.9rem;
+    color: #777;
+    font-style: italic;
+}
+
+.campo-custom input {
+    border-bottom: 1px solid var(--terracota) !important;
+    text-align: center;
+    font-size: 1.8rem !important;
+    font-weight: 700;
+    color: var(--terracota);
+}
+
+.campo-custom label {
+    color: #999 !important;
+    width: 100%;
+    text-align: center;
+}
+
+.botao-natural {
+    background-color: var(--marrom-profundo) !important;
+    border-radius: 50px !important;
+    text-transform: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.botao-natural:hover {
+    background-color: var(--terracota) !important;
+    transform: translateY(-2px);
+}
+
+.cartao-resultados {
+    background: #FFFFFF;
+    border-radius: 15px !important;
+    margin-top: 30px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.topo-resultados {
+    background: var(--marrom-profundo);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.corpo-tabela {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.tabela-estilizada th {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #999;
+    padding: 15px 20px;
+}
+
+.tabela-estilizada td {
+    padding: 12px 20px;
+}
+
+.nota-valor {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.status-texto {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.cor-verde {
+    color: var(--verde-musgo);
+}
+
+.cor-vermelha {
+    color: #A64B2A;
+}
+
+.link-reset {
+    color: white;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.animar-linha {
+    animation: fadeInDown 0.4s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
