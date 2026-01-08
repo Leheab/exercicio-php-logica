@@ -14,7 +14,7 @@ describe('Titans Artesanais - Sistema de Avaliação de Produtos', () => {
     it('2. Deve carregar o Painel de Entrada com o contador inicial', () => {
         cy.get('.painel-entrada').should('be.visible');
         cy.get('#contador-label').should('contain', 'Avaliação 1 de 15');
-        cy.get('.titulo-formulario').should('contain', 'Feedback do Produto');
+        cy.get('#titulo-pergunta').should('contain', 'Facilidade de realizar a compra');
     });
 
     it('3. Deve validar o input de nota e o ícone', () => {
@@ -29,20 +29,20 @@ describe('Titans Artesanais - Sistema de Avaliação de Produtos', () => {
         cy.get('#painel-resultados').should('be.visible');
         cy.get('#tabela-corpo tr').first().within(() => {
             cy.get('.nota-valor').should('contain', '8.5');
-            cy.get('.status-texto').should('contain', 'Satisfatória');
+            cy.get('.status-texto').should('contain', 'Ok');
             cy.get('.cor-verde').should('exist');
         });
 
-        cy.get('#contador-label').should('contain', 'Avaliação 2 de 15');
+        cy.get('#contador-label').should('contain', 'Pergunta 2 de 15');
     });
 
-    it('5. Deve registrar uma nota "Insatisfatória" (menor que 6)', () => {
+    it('5. Deve registrar uma nota "Ruim" (menor que 6)', () => {
         cy.get('#campo-nota').type('4.0');
         cy.get('#btn-registrar').click();
 
         cy.get('#tabela-corpo tr').first().within(() => {
             cy.get('.nota-valor').should('contain', '4.0');
-            cy.get('.status-texto').should('contain', 'Insatisfatória');
+            cy.get('.status-texto').should('contain', 'Ruim');
             cy.get('.cor-vermelha').should('exist');
         });
     });
@@ -50,7 +50,7 @@ describe('Titans Artesanais - Sistema de Avaliação de Produtos', () => {
     it('6. Deve validar o design moderno (Bordas Arredondadas e Efeito Vidro)', () => {
         cy.get('.painel-entrada').should('have.css', 'border-radius', '20px');
 
-        cy.get('.painel-entrada').should('have.css', 'background-color', 'rgba(255, 255, 255, 0.9)');
+        cy.get('.painel-entrada').should('have.css', 'background-color', 'rgba(194, 164, 164, 0.9)');
     });
 
     it('7. Deve validar o botão de estilo artesanal (Terroso)', () => {
