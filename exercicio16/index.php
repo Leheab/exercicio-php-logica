@@ -31,7 +31,7 @@
                     <div class="card-content">
                         <div class="cabecalho-centro">
                             <span class="etiqueta-voto" id="contador-label">Avaliação 1 de 15</span>
-                            <h5 class="titulo-formulario">Feedback do Produto</h5>
+                            <h5 class="titulo-formulario" id="titulo-pergunta">Facilidade de realizar a compra</h5>
                             <p class="legenda-formulario">Insira a nota de satisfação (0 a 10)</p>
                         </div>
 
@@ -52,7 +52,6 @@
                     </div>
                 </div>
 
-                <!-- Painel de Resultados (Simulando AJAX) -->
                 <div id="painel-resultados" class="cartao-resultados" style="display: none;">
                     <div class="topo-resultados">
                         <span class="titulo-lista">HISTÓRICO DO LOTE</span>
@@ -63,6 +62,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Critério</th>
                                     <th>Nota</th>
                                     <th>Classificação</th>
                                 </tr>
@@ -83,45 +83,65 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
+        const criterios = [
+            "Facilidade de realizar a compra",
+            "Variedade do catálogo",
+            "Segurança na navegação",
+            "Clareza das fotos dos produtos",
+            "Informações nutricionais/técnicas",
+            "Opções de pagamento",
+            "Tempo de entrega",
+            "Custo do frete",
+            "Qualidade da embalagem externa",
+            "Cuidado no embrulho dos itens",
+            "Aroma/Apresentação ao abrir",
+            "Qualidade do produto artesanal",
+            "Sustentabilidade dos materiais",
+            "Atendimento ao cliente",
+            "Recomendaria a loja a amigos?"
+        ];
+
         let totalNotas = 0;
-        const limite = 15;
 
         document.getElementById('formularioNota').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            if (totalNotas >= limite) return;
+            if (totalNotas >= criterios.length) return;
 
             const input = document.getElementById('campo-nota');
             const nota = parseFloat(input.value);
+            const criterioAtual = criterios[totalNotas];
 
             totalNotas++;
 
-            adicionarNotaNaTabela(nota, totalNotas);
+            adicionarNotaNaTabela(nota, totalNotas, criterioAtual);
 
             input.value = '';
             input.focus();
 
-            if (totalNotas < limite) {
-                document.getElementById('contador-label').innerText = `Avaliação ${totalNotas + 1} de 15`;
+            if (totalNotas < criterios.length) {
+                document.getElementById('contador-label').innerText = `Pergunta ${totalNotas + 1} de 15`;
+                document.getElementById('titulo-pergunta').innerText = criterios[totalNotas];
             } else {
                 finalizarLote();
             }
         });
 
-        function adicionarNotaNaTabela(nota, id) {
+        function adicionarNotaNaTabela(nota, id, textoCriterio) {
             const painel = document.getElementById('painel-resultados');
             const corpo = document.getElementById('tabela-corpo');
 
             painel.style.display = 'block';
 
             const ehSatisfatorio = nota >= 6;
-            const status = ehSatisfatorio ? 'Satisfatória' : 'Insatisfatória';
+            const status = ehSatisfatorio ? 'Ok' : 'Ruim';
             const classe = ehSatisfatorio ? 'cor-verde' : 'cor-vermelha';
             const icone = ehSatisfatorio ? 'sentiment_satisfied' : 'sentiment_dissatisfied';
 
             const linha = `
                 <tr class="animar-linha">
                     <td>${id}</td>
+                    <td style="font-size: 0.85rem;">${textoCriterio}</td>
                     <td class="nota-valor">${nota.toFixed(1)}</td>
                     <td class="${classe} status-texto">
                         <i class="material-icons tiny">${icone}</i> ${status}
@@ -135,10 +155,11 @@
         function finalizarLote() {
             document.getElementById('btn-registrar').disabled = true;
             document.getElementById('campo-nota').disabled = true;
-            document.getElementById('contador-label').innerText = "Processo Concluído";
+            document.getElementById('titulo-pergunta').innerText = "Obrigado pelo seu Feedback!";
+            document.getElementById('contador-label').innerText = "Concluído";
             document.getElementById('contador-label').style.background = "#5B6D44";
             M.toast({
-                html: 'Limite de 15 avaliações atingido!',
+                html: 'Pesquisa enviada com sucesso!',
                 classes: 'rounded'
             });
         }
