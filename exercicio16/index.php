@@ -1,3 +1,6 @@
+<?php
+include __DIR__ . "/src/processa.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -52,7 +55,7 @@
                     </div>
                 </div>
 
-                <div id="painel-resultados" class="cartao-resultados" style="display: none;">
+                <div id="painel-resultados" class="cartao-resultados">
                     <div class="topo-resultados">
                         <span class="titulo-lista">HISTÓRICO DO LOTE</span>
                         <i class="material-icons">spa</i>
@@ -68,13 +71,14 @@
                                 </tr>
                             </thead>
                             <tbody id="tabela-corpo">
+                                <?php echo listEvaluations(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
                 <div class="center-align" style="margin-top: 30px;">
-                    <a href="index.html" class="link-reset">Limpar lote e reiniciar</a>
+                    <a href="index.php" class="link-reset">Limpar lote e reiniciar</a>
                 </div>
 
             </div>
@@ -112,19 +116,35 @@
             const nota = parseFloat(input.value);
             const criterioAtual = criterios[totalNotas];
 
-            totalNotas++;
+            const dados = new FormData();
+            dados.append('criterion', criterioAtual);
+            dados.append('score', nota);
 
-            adicionarNotaNaTabela(nota, totalNotas, criterioAtual);
+            fetch('src/processa.php', {
+                    method: 'POST',
+                    body: dados
+                })
+                .then(resposta => resposta.json())
+                .then(objeto => {
+                    if (objeto.success) {
+                        totalNotas++;
 
-            input.value = '';
-            input.focus();
+                        adicionarNotaNaTabela(nota, totalNotas, criterioAtual);
 
-            if (totalNotas < criterios.length) {
-                document.getElementById('contador-label').innerText = `Pergunta ${totalNotas + 1} de 15`;
-                document.getElementById('titulo-pergunta').innerText = criterios[totalNotas];
-            } else {
-                finalizarLote();
-            }
+                        input.value = '';
+                        input.focus();
+
+                        if (totalNotas < criterios.length) {
+                            document.getElementById('contador-label').innerText = `Pergunta ${totalNotas + 1} de 15`;
+                            document.getElementById('titulo-pergunta').innerText = criterios[totalNotas];
+                        } else {
+                            finalizarLote();
+                        }
+                    } else {
+                        alert("Erro ao salvar no banco de dados.");
+                    }
+                })
+                .catch(erro => console.error("Erro na requisição:", erro));
         });
 
         function adicionarNotaNaTabela(nota, id, textoCriterio) {
@@ -134,20 +154,20 @@
             painel.style.display = 'block';
 
             const ehSatisfatorio = nota >= 6;
-            const status = ehSatisfatorio ? 'Ok' : 'Ruim';
+            const status = ehSatisfatorio ? 'Satisfatória' : 'Insatisfatória';
             const classe = ehSatisfatorio ? 'cor-verde' : 'cor-vermelha';
             const icone = ehSatisfatorio ? 'sentiment_satisfied' : 'sentiment_dissatisfied';
 
             const linha = `
-                <tr class="animar-linha">
-                    <td>${id}</td>
-                    <td style="font-size: 0.85rem;">${textoCriterio}</td>
-                    <td class="nota-valor">${nota.toFixed(1)}</td>
-                    <td class="${classe} status-texto">
-                        <i class="material-icons tiny">${icone}</i> ${status}
-                    </td>
-                </tr>
-            `;
+            <tr class="animar-linha">
+                <td>${id}</td>
+                <td style="font-size: 0.85rem;">${textoCriterio}</td>
+                <td class="nota-valor">${nota.toFixed(1)}</td>
+                <td class="${classe} status-texto">
+                    <i class="material-icons tiny">${icone}</i> ${status}
+                </td>
+            </tr>
+        `;
 
             corpo.innerHTML = linha + corpo.innerHTML;
         }
@@ -164,6 +184,3 @@
             });
         }
     </script>
-</body>
-
-</html>
