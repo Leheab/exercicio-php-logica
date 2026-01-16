@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . "/src/processa.php";
+$linhas_historico = buscarHistoricoTemperaturas();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,7 +38,7 @@
                             <div class="row">
                                 <?php for ($i = 1; $i <= 20; $i++): ?>
                                     <div class="input-field col s6 m3 l2">
-                                        <input id="dia_<?= $i ?>" type="number" step="0.1" class="validate input-temperatura" required>
+                                        <input id="dia_<?= $i ?>" name="temperaturas[]" type="number" step="0.1" class="validate input-temperatura" required>
                                         <label for="dia_<?= $i ?>">Dia <?= $i ?> (°C)</label>
                                     </div>
                                 <?php endfor; ?>
@@ -73,6 +77,26 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="card card-tabela">
+            <div class="card-content">
+                <span class="card-title cor-primaria-texto">Histórico de Registros Mensais</span>
+                <table class="highlight centered">
+                    <thead>
+                        <tr>
+                            <th>Data do Registro</th>
+                            <th>Média</th>
+                            <th>Máxima</th>
+                            <th>Mínima</th>
+                            <th>Frequência Calor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php echo $linhas_historico; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

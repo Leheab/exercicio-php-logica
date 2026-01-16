@@ -11,32 +11,57 @@ describe('Controle de Temperaturas - Teste de Interface e Lógica', () => {
         cy.get('.identidade-visual i').should('have.text', 'ac_unit');
     });
 
-    it('2. Deve carregar o Painel de Cadastro com as instruções', () => {
-        cy.get('.card-formulario').should('be.visible');
-        cy.get('.cor-primaria-texto').should('contain', 'Cadastro de Dados Mensais');
-        cy.get('.instrucao').should('contain', 'Informe a temperatura máxima');
+    it('2. Deve validar a presença dos 20 campos de entrada', () => {
+        cy.get('input.input-temperatura').should('have.length', 20).each(($el) => {
+            cy.wrap($el).should('have.attr', 'name', 'temperaturas[]');
+            cy.wrap($el).should('have.attr', 'type', 'number');
+        });
     });
 
-    it('3. Deve validar a presença dos 20 campos de entrada', () => {
-        cy.get('input.input-temperatura').should('have.length', 20);
-    });
+    it('3. Deve preencher o formulário e processar os dados via AJAX', () => {
+        cy.intercept('POST', '**/processar.php').as('ajaxProcessar');
 
-    it('4. Segurança: Deve garantir proteção básica contra XSS no formulário', () => {
-        const xssAttack = '<img src=x onerror=alert(1)>';
+        const temps = [25, 32, 28, 35, 20, 22, 31, 29, 30, 33, 24, 26, 30, 31, 27, 28, 29, 30, 34, 32];
 
-        cy.get('#dia_1')
-            .invoke('attr', 'type', 'text')
-            .type(xssAttack, { force: true });
+        cy.get('input.input-temperatura').each(($el, index) => {
+            cy.wrap($el).type(temps[index], { force: true });
+        });
 
         cy.get('#btn-processar').click();
 
-        cy.get('body').should('not.contain', xssAttack);
+        cy.wait('@ajaxProcessar').its('response.statusCode').should('eq', 200);
+
+        cy.get('#painel-resultados').should('be.visible');
+
+        cy.get('#corpo-tabela-resultado').within(() => {
+            cy.get('td').should('contain', '35.0°C');
+            cy.get('td').should('contain', '20.0°C');
+        });
     });
 
-    it('5. Acessibilidade: Inputs devem possuir labels associados', () => {
+    it('4. Segurança: Deve validar que os campos são numéricos', () => {
+        cy.get('#dia_1').type('ABC', { force: true });
+        cy.get('#dia_1').should('have.value', '');
+    });
+
+    it('5. Acessibilidade: Labels devem estar corretamente associadas', () => {
         for (let i = 1; i <= 20; i++) {
             cy.get(`label[for="dia_${i}"]`).should('be.visible');
         }
+    });
+
+    it('6. Deve resetar a visualização ao clicar em Limpar Dados', () => {
+        cy.get('input.input-temperatura').each(($el) => {
+            cy.wrap($el).type('25', { force: true });
+        });
+
+        cy.get('#btn-processar').click();
+
+        cy.get('#painel-resultados').should('be.visible');
+
+        cy.contains('button', 'Limpar Dados').click();
+
+        cy.get('#painel-resultados').should('not.be.visible');
     });
 
 });

@@ -1,28 +1,30 @@
 document.getElementById('formulario-temperatura').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const inputs = document.querySelectorAll('.input-temperatura');
-    const temperaturas = Array.from(inputs).map(input => parseFloat(input.value));
+    const formulario = document.getElementById('formulario-temperatura');
+    const dadosFormulario = new FormData(formulario);
 
-    const maxima = Math.max(...temperaturas);
-    const minima = Math.min(...temperaturas);
-    const soma = temperaturas.reduce((a, b) => a + b, 0);
-    const media = (soma / temperaturas.length).toFixed(1);
+    fetch('processar.php', {
+        method: 'POST',
+        body: dadosFormulario
+    })
+        .then(response => response.json())
+        .then(dados => {
+            document.getElementById('corpo-tabela-resultado').innerHTML = `
+            <tr>
+                <td class="valor-destaque">${dados.media}°C</td>
+                <td class="valor-destaque red-text text-darken-2">${dados.maxima}°C</td>
+                <td class="valor-destaque blue-text text-darken-2">${dados.minima}°C</td>
+                <td class="valor-destaque">${dados.percentual}%</td>
+            </tr>
+        `;
 
-    const diasQuentes = temperaturas.filter(t => t > 30).length;
-    const percentual = ((diasQuentes / temperaturas.length) * 100).toFixed(0);
-
-    document.getElementById('corpo-tabela-resultado').innerHTML = `
-        <tr>
-            <td class="valor-destaque">${media}°C</td>
-            <td class="valor-destaque red-text text-darken-2">${maxima}°C</td>
-            <td class="valor-destaque blue-text text-darken-2">${minima}°C</td>
-            <td class="valor-destaque">${percentual}%</td>
-        </tr>
-    `;
-
-    const painel = document.getElementById('painel-resultados');
-    painel.style.display = 'block';
-
-    painel.scrollIntoView({ behavior: 'smooth' });
+            const painel = document.getElementById('painel-resultados');
+            painel.style.display = 'block';
+            painel.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao processar os dados no servidor.');
+        });
 });
