@@ -1,0 +1,143 @@
+body {
+    background-color: #f8fafc !important;
+    color: #334155 !important;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.topo-branco {
+    background-color: #ffffff !important;
+    height: 70px;
+    line-height: 70px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.flex-nav {
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+
+.flex-nav img {
+    height: 40px;
+    margin-right: 20px;
+}
+
+.marca-principal {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #192b55 !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.separador {
+    margin: 0 10px;
+    color: #e2e8f0;
+}
+
+.marca-sistema {
+    font-size: 0.8rem;
+    color: #94a3b8 !important;
+    font-weight: 400;
+}
+
+.margem-topo {
+    margin-top: 40px;
+}
+
+.cartao-limpo {
+    background-color: #ffffff !important;
+    padding: 35px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+    min-height: 600px;
+}
+
+.borda-superior-azul {
+    border-top: 4px solid #2563eb !important;
+}
+
+.borda-superior-laranja {
+    border-top: 4px solid #ea580c !important;
+}
+
+.subtitulo-fluxo {
+    font-size: 1rem;
+    font-weight: 700 !important;
+    margin: 30px 0 5px 0;
+    text-transform: uppercase;
+    display: block;
+}
+
+.azul-texto {
+    color: #2563eb !important;
+}
+
+.laranja-texto {
+    color: #ea580c !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+    text-decoration: none;
+}
+
+.tag-identificacao {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8 !important;
+    letter-spacing: 1px;
+}
+
+.legenda-ajuda {
+    font-size: 0.8rem;
+    color: #94a3b8 !important;
+    margin-bottom: 25px;
+    height: 40px;
+}
+
+.input-field label {
+    color: #94a3b8 !important;
+}
+
+.select-wrapper .caret {
+    fill: #192b55 !important;
+}
+
+.select-wrapper input.select-dropdown {
+    border-bottom: 1px solid #e2e8f0 !important;
+    font-weight: 600;
+    color: #334155 !important;
+}
+
+.btn-principal {
+    background-color: #192b55 !important;
+    color: #ffffff !important;
+    height: 55px;
+    padding: 0 50px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-principal:hover {
+    background-color: #2563eb !important;
+}
+
+.secao-resultado {
+    background-color: #ffffff !important;
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 80px;
+}
