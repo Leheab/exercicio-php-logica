@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . "/src/processa.php";
+$linhas_historico = buscarHistoricoParaTabela();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,16 +38,14 @@
                         <span class="tag-identificacao">PESSOA 1 // ALUNO</span>
 
                         <div class="input-field campo-selecao">
-                            <select name="aluno_nome" id="aluno_nome" required>
+                            <select name="aluno_id" id="aluno_id" required>
                                 <option value="" disabled selected>Selecionar Aluno</option>
-                                <option>Davi Leandro</option>
-                                <option>Enedson Gomes</option>
-                                <option>Fernanda Maressa</option>
-                                <option>Julia Anjos</option>
-                                <option>Letícia Helena</option>
-                                <option>Rayane Duarte</option>
-                                <option>Valéria Mazok</option>
-                                <option>Jean Prado</option>
+                                <?php
+                                $alunos = buscarUsuarios('aluno');
+                                while ($a = mysqli_fetch_assoc($alunos)) {
+                                    echo "<option value='{$a['id']}'>" . htmlspecialchars($a['nome']) . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
 
@@ -53,7 +55,7 @@
                         <div class="row grade-nvt">
                             <?php for ($i = 1; $i <= 10; $i++): ?>
                                 <div class="input-field col s6 m4">
-                                    <input name="nvts_aluno[]" type="number" class="validate" required>
+                                    <input name="nvts_aluno[]" type="number" class="validate">
                                     <label>NVT</label>
                                 </div>
                             <?php endfor; ?>
@@ -66,11 +68,14 @@
                         <span class="tag-identificacao">PESSOA 2 // MENTOR</span>
 
                         <div class="input-field campo-selecao">
-                            <select name="mentor_nome" id="mentor_nome" required>
+                            <select name="mentor_id" id="mentor_id" required>
                                 <option value="" disabled selected>Selecionar Mentor</option>
-                                <option>Edmar Gomes</option>
-                                <option>Liliane Paixão</option>
-                                <option>Pamela Neco</option>
+                                <?php
+                                $mentores = buscarUsuarios('mentor');
+                                while ($m = mysqli_fetch_assoc($mentores)) {
+                                    echo "<option value='{$m['id']}'>" . htmlspecialchars($m['nome']) . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
 
@@ -80,7 +85,7 @@
                         <div class="row grade-nvt">
                             <?php for ($i = 1; $i <= 10; $i++): ?>
                                 <div class="input-field col s6 m4">
-                                    <input name="nvts_mentor[]" type="number" class="validate" required>
+                                    <input name="nvts_mentor[]" type="number" class="validate">
                                     <label>NVT</label>
                                 </div>
                             <?php endfor; ?>
@@ -89,18 +94,57 @@
                 </div>
             </div>
 
-            <div class="center-align area-acao">
+            <div class="area-acao">
                 <button type="submit" class="btn-principal waves-effect waves-light" id="btn-analisar">
                     Comparar Atividades
+                </button>
+
+                <button type="button" class="btn-secundario waves-effect waves-light" id="btn-consultar">
+                    Consultar Meu Status
                 </button>
             </div>
         </form>
 
         <div id="painel-resultados" class="secao-resultado" style="display: none;"></div>
+
+        <div class="card cartao-limpo margem-topo">
+            <div class="card-content">
+                <div class="row" style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="col s6">
+                        <span class="tag-identificacao">HISTÓRICO RECENTE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela -->
+            <table class="highlight centered responsive-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Participantes</th>
+                        <th>Status / Detalhes</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php echo $linhas_historico; ?>
+                </tbody>
+            </table>
+        </div>
+        <div id="painel-dashboard" class="card cartao-limpo margem-topo" style="display: none;">
+            <div class="card-content">
+                <span class="tag-identificacao">DESEMPENHO DA COMPARAÇÃO ATUAL</span>
+                <div style="position: relative; height: 200px; width: 100%; margin-top: 20px;">
+                    <canvas id="graficoProdutividade"></canvas>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/scripts.js?v=3.0"></script>
 </body>
 
 </html>
