@@ -4,21 +4,28 @@ document.getElementById('formulario-temperatura').addEventListener('submit', fun
     const inputs = document.querySelectorAll('.input-temperatura');
     const temperaturas = Array.from(inputs).map(input => parseFloat(input.value));
 
-    const formData = new FormData();
-    temperaturas.forEach(temp => formData.append('temperaturas[]', temp));
-
-    fetch('processar.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json()) // O PHP vai devolver os cálculos prontos
-        .then(dados => {
-            atualizarInterface(dados);
-        })
-        .catch(error => {
-            console.error('Erro ao processar:', error);
-            alert('Erro ao enviar dados para o servidor.');
+        $('.input-temperatura').each(function () {
+            formData.append('temperaturas[]', $(this).val());
         });
+
+        $.ajax({
+            url: 'processar.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (dados) {
+                exibirResultados(dados);
+            },
+            error: function () {
+                M.toast({
+                    html: 'Erro ao processar informações',
+                    classes: 'red'
+                });
+            }
+        });
+    });
 });
 
 function atualizarInterface(dados) {
@@ -34,4 +41,4 @@ function atualizarInterface(dados) {
     painel.style.display = 'block';
 
     painel.scrollIntoView({ behavior: 'smooth' });
-});
+}
