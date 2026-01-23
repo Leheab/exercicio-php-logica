@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fundo-cinza);
+    background-image: linear-gradient(135deg, #e3f2fd 0%, #fff7f7 100%);
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    color: var(--texto-cor);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.topo {
+    background-color: #ffffff !important;
+    height: 75px !important;
+    line-height: 75px !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+.flex-topo {
+    display: flex;
+    align-items: center;
+    height: 75px;
+}
+
+.logo-pequena {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid var(--azul-titans);
+}
+
+.nome-ong {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.barra {
+    margin: 0 10px;
+    color: #ddd;
+}
+
+.nome-modulo {
+    color: var(--azul-titans);
+    font-weight: 400;
+}
+
+.cartao {
+    padding: 35px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.glass {
+    background: var(--branco-vidro);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.tabela-rolagem {
+    overflow-x: auto;
+}
+
+.tabela-simples input[type="number"] {
+    background-color: white !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    text-align: center !important;
+    height: 38px !important;
+    width: 75px !important;
+}
+
+.celula-diagonal {
+    background-color: rgba(13, 71, 161, 0.1) !important;
+    border: 2px solid var(--azul-titans) !important;
+    color: var(--azul-titans) !important;
+    font-weight: 700;
+}
+
+.botao-azul {
+    background-color: var(--azul-titans) !important;
+    height: 48px !important;
+    line-height: 48px !important;
+    padding: 0 35px !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+}
+
+.azul-texto {
+    color: var(--azul-titans);
+}
+
+.centro {
+    text-align: center;
+}
+
+.margem-topo {
+    margin-top: 40px;
+}
