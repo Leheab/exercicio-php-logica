@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Indice</title>
 </head>
+
 <body>
     <h1>Indice</h1>
     <a href="exercicio1/">Exercicio 1</a>
@@ -26,7 +28,8 @@
     <a href="exercicio16/">Exercicio 16</a>
     <a href="exercicio17/">Exercicio 17</a>
     <a href="exercicio18/">Exercicio 18</a>
-    <a href="exercicio19/">Exercicio 13</a>
-    <a href="exercicio20/">Exercicio 20</a> 
+    <a href="exercicio19/">Exercicio 19</a>
+    <a href="exercicio20/">Exercicio 20</a>
 </body>
+
 </html>
