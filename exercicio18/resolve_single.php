@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/src/conexao.php";
+include __DIR__ . "/src/connection.php";
 header('Content-Type: application/json');
 
 $idRegistro = intval($_POST['id'] ?? 0);

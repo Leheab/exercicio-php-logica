@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/src/processa.php";
+include __DIR__ . "/src/process.php";
 $linhas_historico = buscarHistoricoParaTabela();
 ?>
 <!DOCTYPE html>

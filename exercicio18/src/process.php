@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 
-include __DIR__ . "/conexao.php";
+include __DIR__ . "/connection.php";
 
 mysqli_query($conexao, "SET time_zone = '-03:00'");
 

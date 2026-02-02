@@ -13,7 +13,7 @@ describe('Auditoria de Atividades NVT - Frontend', () => {
     });
 
     it('2. Simula preenchimento e envio com retorno de sucesso via AJAX', () => {
-        cy.intercept('POST', '**/processar.php', {
+        cy.intercept('POST', '**/process.php', {
             statusCode: 200,
             body: {
                 sucesso: true,
@@ -41,7 +41,7 @@ describe('Auditoria de Atividades NVT - Frontend', () => {
     });
 
     it('3. Valida a trava de segurança (Safety Lock)', () => {
-        cy.intercept('POST', '**/processar.php', {
+        cy.intercept('POST', '**/process.php', {
             statusCode: 200,
             body: {
                 status_bloqueio: true,
@@ -61,7 +61,7 @@ describe('Auditoria de Atividades NVT - Frontend', () => {
     });
 
     it('4. Testa o carregamento do Dashboard', () => {
-        cy.intercept('POST', '**/processar.php', {
+        cy.intercept('POST', '**/process.php', {
             statusCode: 200,
             body: {
                 tabela_html: '<tr><td>Historico Simulado</td></tr>',

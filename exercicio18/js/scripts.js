@@ -40,7 +40,7 @@ $('#formulario-auditoria').on('submit', function (e) {
     const dadosForm = new FormData(this);
 
     $.ajax({
-        url: 'processar.php',
+        url: 'process.php',
         type: 'POST',
         data: dadosForm,
         processData: false,
@@ -86,7 +86,7 @@ $('#btn-consultar').on('click', function () {
     if (!id) return M.toast({ html: 'Selecione um aluno', classes: 'blue' });
 
     $.ajax({
-        url: 'processar.php',
+        url: 'process.php',
         type: 'POST',
         data: { acao: 'consultar', aluno_id: id },
         dataType: 'json',
@@ -102,7 +102,7 @@ function resolverNvtUnico(idRegistro, valorNvt) {
     if (!confirm(`Deseja resolver o NVT ${valorNvt}?`)) return;
 
     $.ajax({
-        url: 'resolver_individual.php',
+        url: 'resolve_single.php',
         type: 'POST',
         data: { id: idRegistro, nvt: valorNvt },
         dataType: 'json',
