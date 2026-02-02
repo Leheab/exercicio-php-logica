@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include __DIR__ . "/src/processa.php";
+include __DIR__ . "/src/process.php";
 
 try {
     $acaoDoUsuario = $_POST['acao'] ?? 'auditar';
