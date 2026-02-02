@@ -1,51 +1,116 @@
-document.addEventListener('DOMContentLoaded', function () {
-    M.FormSelect.init(document.querySelectorAll('select'));
+let chartInstancia = null;
+let estaEnviando = false;
+
+$(document).ready(function () {
+    $('select').formSelect();
 });
 
-document.getElementById('formulario-auditoria').addEventListener('submit', function (e) {
+function gerenciarGrafico(dados) {
+    const ctx = document.getElementById('graficoProdutividade');
+    if (!ctx) return;
+
+    $('#painel-dashboard').show();
+
+    if (chartInstancia) chartInstancia.destroy();
+
+    chartInstancia = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Bloqueios Pendentes', 'Resolvidos'],
+            datasets: [{
+                data: [dados.pendentes, dados.corrigidos],
+                backgroundColor: ['#ef5350', '#66bb6a'],
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+}
+
+$('#formulario-auditoria').on('submit', function (e) {
     e.preventDefault();
-    const botao = document.getElementById('btn-analisar');
-    const painel = document.getElementById('painel-resultados');
 
-    botao.innerText = "Comparando...";
-    botao.classList.add('disabled');
+    if (estaEnviando) return;
+    estaEnviando = true;
 
-    const dados = new FormData(this);
+    const $btn = $('#btn-analisar');
+    const textoOriginal = $btn.text();
+    $btn.prop('disabled', true).text("Processando...");
 
-    fetch('processar.php', {
-        method: 'POST',
-        body: dados
-    })
-        .then(resposta => resposta.json())
-        .then(resultado => {
-            let html = `<h5 class="center-align" style="font-weight:800; margin-bottom:40px;">Relatório de Sincronia</h5>
-                    <div class="row">`;
+    const dadosForm = new FormData(this);
 
-            const criarColuna = (titulo, lista, cor) => {
-                let itens = `<div class="col s12 m6">
-                            <p class="grey-text uppercase" style="font-size:0.7rem; font-weight:bold;">${titulo}</p>`;
+    $.ajax({
+        url: 'processar.php',
+        type: 'POST',
+        data: dadosForm,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (res) {
+            estaEnviando = false;
+            $btn.prop('disabled', false).text(textoOriginal);
 
-                if (lista.length > 0) {
-                    lista.forEach(n => {
-                        itens += `<div style="padding:12px; background:#f8fafc; border-left:4px solid ${cor}; margin-bottom:10px;">Card NVT-${n}</div>`;
-                    });
-                } else {
-                    itens += `<p class="grey-text">Tudo sincronizado.</p>`;
+            const $painel = $('#painel-resultados');
+            $painel.show();
+
+            if (res.status_bloqueio) {
+                $painel.html(`<div class="card-panel amber lighten-4 brown-text" style="border:2px solid #ffa000"><b>${res.mensagem}</b></div>`);
+            } else if (res.erro) {
+                M.toast({ html: res.erro, classes: 'red' });
+            } else {
+                let htmlSucesso = `<div class="card-panel green lighten-5"><b class="green-text text-darken-4">✅ Processado com AJAX!</b><br>`;
+                if (res.nvts_bloqueados.length > 0) {
+                    htmlSucesso += `<p class="red-text"><b>🚫 BLOQUEIOS:</b> ${res.nvts_bloqueados.join(', ')}</p>`;
                 }
-                return itens + `</div>`;
-            };
+                htmlSucesso += `<p class="grey-text"><b>📦 SUCESSOS:</b> ${res.nvts_sucesso.join(', ')}</p></div>`;
 
-            html += criarColuna("Exclusivo do Aluno", resultado.exclusivos_aluno, "#7b2cbf");
-            html += criarColuna("Exclusivo do Mentor", resultado.exclusivos_mentor, "#3a86ff");
-            html += `</div>`;
+                $painel.html(htmlSucesso);
+                $('tbody').html(res.tabela_atualizada);
+                gerenciarGrafico(res.dados_grafico);
 
-            painel.innerHTML = html;
-            painel.style.display = 'block';
-
-            window.scrollTo({ top: painel.offsetTop - 50, behavior: 'smooth' });
-
-            botao.innerText = "Comparar Atividades";
-            botao.classList.remove('disabled');
-        })
-        .catch(erro => alert("Erro ao processar dados no servidor."));
+                $('#formulario-auditoria')[0].reset();
+                $('select').formSelect();
+                M.toast({ html: 'Registrado com sucesso!', classes: 'green' });
+            }
+        },
+        error: function () {
+            estaEnviando = false;
+            $btn.prop('disabled', false).text(textoOriginal);
+            M.toast({ html: 'Erro na requisição AJAX', classes: 'red' });
+        }
+    });
 });
+
+$('#btn-consultar').on('click', function () {
+    const id = $('#aluno_id').val();
+    if (!id) return M.toast({ html: 'Selecione um aluno', classes: 'blue' });
+
+    $.ajax({
+        url: 'processar.php',
+        type: 'POST',
+        data: { acao: 'consultar', aluno_id: id },
+        dataType: 'json',
+        success: function (res) {
+            $('tbody').html(res.tabela_html);
+            if (res.dados_grafico) gerenciarGrafico(res.dados_grafico);
+            M.toast({ html: 'Dados carregados via AJAX.', classes: 'blue' });
+        }
+    });
+});
+
+function resolverNvtUnico(idRegistro, valorNvt) {
+    if (!confirm(`Deseja resolver o NVT ${valorNvt}?`)) return;
+
+    $.ajax({
+        url: 'resolver_individual.php',
+        type: 'POST',
+        data: { id: idRegistro, nvt: valorNvt },
+        dataType: 'json',
+        success: function (res) {
+            if (res.sucesso) {
+                M.toast({ html: `NVT ${valorNvt} resolvido!`, classes: 'green' });
+                $('#btn-consultar').trigger('click');
+            }
+        }
+    });
+}
