@@ -1,3 +1,10 @@
+:root {
+    --azul-titans: #0d47a1;
+    --fundo-cinza: #f5f5f5;
+    --texto-cor: #333333;
+    --branco-vidro: rgba(255, 255, 255, 0.8);
+}
+
 body {
     margin: 0;
     padding: 0;
