@@ -1,0 +1,114 @@
+:root {
+    --fundo-bege: #fdfaf5;
+    --verde-primario: #66bb6a;
+    --verde-escuro: #388e3c;
+    --texto: #5d6d7e;
+    --vidro: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    background-color: var(--fundo-bege);
+    background-image: radial-gradient(at top left, #ffffff, #f1f8e9);
+    font-family: 'Nunito', sans-serif;
+    color: var(--texto);
+    margin: 0;
+}
+
+.nav-transparente {
+    background: transparent !important;
+    box-shadow: none !important;
+    margin-top: 20px;
+}
+
+.brand-logo {
+    font-weight: 900 !important;
+    display: flex !important;
+    align-items: center;
+}
+
+/* Glassmorphism Effect */
+.glass {
+    background: var(--vidro);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+}
+
+.cartao-principal {
+    padding: 40px;
+    margin-top: 30px;
+}
+
+.cartao-resultado {
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.verde-texto {
+    color: var(--verde-escuro);
+    font-weight: 700;
+}
+
+.laranja-texto {
+    color: #ef6c00;
+    font-weight: 700;
+}
+
+.azul-texto {
+    color: #1976d2;
+    font-weight: 700;
+}
+
+.intro-text {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Tabela de Inputs */
+.tabela-cadastro input[type="number"] {
+    background-color: #fff !important;
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    height: 45px !important;
+    width: 70px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+.tabela-cadastro input:focus {
+    border: 2px solid var(--verde-primario) !important;
+    box-shadow: none !important;
+}
+
+/* Botões */
+.btn-eco {
+    background-color: var(--verde-primario) !important;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+
+.btn-container {
+    margin-top: 40px;
+}
+
+.tabela-rolagem {
+    overflow-x: auto;
+}
+
+.borda-impar {
+    border-top: 5px solid #ffb74d;
+}
+
+.borda-par {
+    border-top: 5px solid #64b5f6;
+}
+
+.zero-valor {
+    color: #cbd5e0;
+    font-weight: 300;
+}
