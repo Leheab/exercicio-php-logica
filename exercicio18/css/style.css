@@ -94,6 +94,8 @@ span {
     font-weight: 700;
     color: #94a3b8 !important;
     letter-spacing: 1px;
+    display: block;
+    margin-bottom: 15px;
 }
 
 .legenda-ajuda {
@@ -117,21 +119,72 @@ span {
     color: #334155 !important;
 }
 
+.area-acao {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .btn-principal {
     background-color: #192b55 !important;
     color: #ffffff !important;
     height: 55px;
-    padding: 0 50px;
+    padding: 0 40px;
     border-radius: 4px;
     font-weight: 600;
     text-transform: none;
     box-shadow: none;
     border: none;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 .btn-principal:hover {
     background-color: #2563eb !important;
+    transform: translateY(-2px);
+}
+
+.btn-secundario {
+    background-color: transparent !important;
+    color: #192b55 !important;
+    height: 55px;
+    padding: 0 40px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+    border: 2px solid #192b55 !important;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-secundario:hover {
+    background-color: #f1f5f9 !important;
+    border-color: #2563eb !important;
+    color: #2563eb !important;
+    transform: translateY(-2px);
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-pendente {
+    background-color: #fff7ed;
+    color: #ea580c;
+    border: 1px solid #ffedd5;
+}
+
+.status-corrigido {
+    background-color: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #e0f2fe;
 }
 
 .secao-resultado {
@@ -140,4 +193,38 @@ span {
     border-radius: 8px;
     border: 1px solid #e2e8f0;
     margin-bottom: 80px;
+}
+
+.btn-nvt-individual {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-nvt-individual i {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.btn-nvt-individual:hover {
+    background-color: #2e7d32;
+    transform: scale(1.05);
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
