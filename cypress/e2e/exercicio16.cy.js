@@ -29,7 +29,7 @@ describe('Titans Artesanais - Sistema de Avaliação de Produtos', () => {
         cy.get('#painel-resultados').should('be.visible');
         cy.get('#tabela-corpo tr').first().within(() => {
             cy.get('.nota-valor').should('contain', '8.5');
-            cy.get('.status-texto').should('contain', 'Ok');
+            cy.get('.status-texto').should('contain', 'Satisfatória');
             cy.get('.cor-verde').should('exist');
         });
 
@@ -37,12 +37,12 @@ describe('Titans Artesanais - Sistema de Avaliação de Produtos', () => {
     });
 
     it('5. Deve registrar uma nota "Ruim" (menor que 6)', () => {
-        cy.get('#campo-nota').type('4.0');
+        cy.get('#campo-nota').clear().type('4.0');
         cy.get('#btn-registrar').click();
 
         cy.get('#tabela-corpo tr').first().within(() => {
             cy.get('.nota-valor').should('contain', '4.0');
-            cy.get('.status-texto').should('contain', 'Ruim');
+            cy.get('.status-texto').should('contain', 'Insatisfatória');
             cy.get('.cor-vermelha').should('exist');
         });
     });
