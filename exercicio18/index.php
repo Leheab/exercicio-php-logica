@@ -53,7 +53,7 @@
                         <div class="row grade-nvt">
                             <?php for ($i = 1; $i <= 10; $i++): ?>
                                 <div class="input-field col s6 m4">
-                                    <input name="nvts_aluno[]" type="number" class="validate" required>
+                                    <input name="nvts_aluno[]" type="number" class="validate">
                                     <label>NVT</label>
                                 </div>
                             <?php endfor; ?>
@@ -99,6 +99,7 @@
         <div id="painel-resultados" class="secao-resultado" style="display: none;"></div>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
